@@ -83,7 +83,7 @@
           "settings": {
             "label": "Instagram",
             "icon_name": "instagram",
-            "url": ""
+            "url": "#"
           }
         },
         "social_DPfkyd": {
@@ -91,7 +91,7 @@
           "settings": {
             "label": "TikTok",
             "icon_name": "tiktok",
-            "url": ""
+            "url": "#"
           }
         },
         "social_wLmXKK": {
