@@ -99,7 +99,7 @@
           "settings": {
             "label": "Facebook",
             "icon_name": "facebook",
-            "url": ""
+            "url": "#"
           }
         },
         "social_DXWtkn": {
@@ -107,7 +107,7 @@
           "settings": {
             "label": "YouTube",
             "icon_name": "youtube",
-            "url": ""
+            "url": "#"
           }
         }
       },
