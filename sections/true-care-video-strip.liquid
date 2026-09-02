@@ -1,0 +1,75 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+<section id="TrueCareVideos-{{ section.id }}" class="tc-section tc-videos tc-section__body" dir="rtl" style="--tc-padding-top: {{ section.settings.padding_top }}px; --tc-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="tc-container">
+    <header class="tc-heading"><h2>{{ section.settings.heading }}</h2><p class="tc-heading__sub">{{ section.settings.subheading }}</p></header>
+    <div class="tc-videos__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video' -%}
+          {%- case block.settings.fallback_poster -%}
+            {%- when 'care_box' -%}{%- assign fallback_poster = 'true-care-video-care-box.jpg' -%}{%- assign fallback_thumb = 'true-care-routine-box.jpg' -%}
+            {%- when 'shampoo' -%}{%- assign fallback_poster = 'true-care-video-shampoo.jpg' -%}{%- assign fallback_thumb = 'true-care-hero.jpg' -%}
+            {%- when 'unboxing' -%}{%- assign fallback_poster = 'true-care-video-unboxing.jpg' -%}{%- assign fallback_thumb = 'true-care-routine-scrub.jpg' -%}
+            {%- else -%}{%- assign fallback_poster = 'true-care-video-fragrance.jpg' -%}{%- assign fallback_thumb = 'true-care-routine-moisturizer.jpg' -%}
+          {%- endcase -%}
+          <article class="tc-video" {{ block.shopify_attributes }}>
+            <div class="tc-video__media"{% if block.settings.video != blank %} role="group" aria-label="{{ block.settings.play_label | escape }}"{% endif %}>
+              {%- if block.settings.video != blank -%}
+                {%- assign poster_url = block.settings.poster | image_url: width: 700 -%}
+                {{ block.settings.video | video_tag: controls: true, autoplay: false, loop: false, muted: false, preload: 'metadata', poster: poster_url }}
+                <span class="tc-video__play" aria-hidden="true">▶</span>
+              {%- elsif block.settings.poster != blank -%}
+                {{ block.settings.poster | image_url: width: 700 | image_tag: loading: 'lazy', widths: '194, 388, 579, 700', sizes: '(min-width: 768px) 17vw, 48vw', alt: block.settings.title }}
+              {%- else -%}
+                <img src="{{ fallback_poster | asset_url }}" width="579" height="1032" loading="lazy" alt="{{ block.settings.title | escape }}">
+              {%- endif -%}
+            </div>
+            <div class="tc-video__copy">
+              <img src="{{ fallback_thumb | asset_url }}" width="88" height="88" loading="lazy" alt="">
+              <h3>{{ block.settings.title }}</h3>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "True Care video strip",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "جاهزة تبدين روتين شعرج" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "خصم 30% على بوكس العناية بالفروة والشعر لفترة محدودة" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 24, "max": 100, "step": 4, "default": 62 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 24, "max": 100, "step": 4, "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Shopify-hosted video" },
+        { "type": "image_picker", "id": "poster", "label": "Poster override" },
+        { "type": "select", "id": "fallback_poster", "label": "Figma fallback poster", "options": [{ "value": "care_box", "label": "Care box" }, { "value": "shampoo", "label": "Shampoo" }, { "value": "unboxing", "label": "Unboxing" }, { "value": "fragrance", "label": "Fragrance" }], "default": "care_box" },
+        { "type": "text", "id": "title", "label": "Title", "default": "بوكس العناية بفروة الشعر" },
+        { "type": "text", "id": "play_label", "label": "Play label", "default": "تشغيل الفيديو" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care video strip",
+      "blocks": [
+        { "type": "video", "settings": { "fallback_poster": "care_box", "title": "بوكس العناية بفروة الشعر" } },
+        { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "شامبو العناية بفروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "fragrance", "title": "عطر الشعر و الجسم" } },
+        { "type": "video", "settings": { "fallback_poster": "unboxing", "title": "سنفرة تنظيف فروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "care_box", "title": "شامبو العناية بفروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "بوكس العناية بفروة الشعر" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

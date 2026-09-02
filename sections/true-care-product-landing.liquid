@@ -1,0 +1,664 @@
+{{ 'true-care-product-landing.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign landing_product = section.settings.product | default: product
+  assign selected_variant = landing_product.selected_or_first_available_variant
+  assign product_form_id = 'TrueCareProductForm-' | append: section.id
+  assign gallery_sizes = '(min-width: 1150px) 610px, (min-width: 768px) 50vw, 100vw'
+-%}
+
+<section
+  id="TrueCare-{{ section.id }}"
+  class="true-care-landing hdt-section"
+  data-true-care-section
+  dir="rtl"
+  style="
+    --tc-accent: {{ section.settings.accent_color }};
+    --tc-accent-dark: {{ section.settings.accent_dark_color }};
+    --tc-soft: {{ section.settings.soft_background }};
+    --tc-warm: {{ section.settings.warm_background }};
+    --tc-text: {{ section.settings.text_color }};
+  "
+>
+  <div class="true-care-landing__hero true-care-landing__section">
+    <div class="hdt-container true-care-landing__hero-grid">
+      <div class="true-care-landing__gallery" data-product-gallery>
+        <div class="true-care-landing__main-media">
+          {%- if landing_product.featured_image != blank -%}
+            {{
+              landing_product.featured_image
+              | image_url: width: 1400
+              | image_tag:
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '375, 550, 750, 900, 1100, 1400',
+                sizes: gallery_sizes,
+                class: 'true-care-landing__main-image'
+            }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'true-care-landing__placeholder' }}
+          {%- endif -%}
+        </div>
+
+        {%- if landing_product.images.size > 1 -%}
+          <div class="true-care-landing__thumbnails" role="list" aria-label="{{ 'products.product.media.gallery_viewer' | t | escape }}">
+            {%- for image in landing_product.images limit: 6 -%}
+              <button
+                type="button"
+                class="true-care-landing__thumbnail{% if forloop.first %} is-active{% endif %}"
+                role="listitem"
+                data-gallery-thumbnail
+                data-image-url="{{ image | image_url: width: 1400 }}"
+                data-image-alt="{{ image.alt | default: landing_product.title | escape }}"
+                aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index | escape }}"
+              >
+                {{
+                  image
+                  | image_url: width: 180
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '90, 120, 180',
+                    sizes: '76px',
+                    alt: image.alt,
+                    class: 'true-care-landing__thumbnail-image'
+                }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="true-care-landing__product-info">
+        {%- if section.settings.product_kicker != blank -%}
+          <p class="true-care-landing__kicker">{{ section.settings.product_kicker }}</p>
+        {%- endif -%}
+
+        <h1 class="true-care-landing__product-title">
+          {{ section.settings.product_heading | default: landing_product.title | escape }}
+        </h1>
+
+        {%- if section.settings.product_subheading != blank -%}
+          <p class="true-care-landing__product-subheading">{{ section.settings.product_subheading }}</p>
+        {%- endif -%}
+
+        <div class="true-care-landing__price-row" aria-live="polite">
+          {%- if selected_variant != blank -%}
+            <span class="true-care-landing__price">{{ selected_variant.price | money }}</span>
+            {%- if selected_variant.compare_at_price > selected_variant.price -%}
+              <s class="true-care-landing__compare-price">{{ selected_variant.compare_at_price | money }}</s>
+              {%- assign saving = selected_variant.compare_at_price | minus: selected_variant.price -%}
+              <span class="true-care-landing__sale-badge">{{ section.settings.sale_badge_label }} {{ saving | money }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+
+        <div class="true-care-landing__description hdt-rte">
+          {%- if section.settings.product_description != blank -%}
+            {{ section.settings.product_description }}
+          {%- elsif landing_product.description != blank -%}
+            {{ landing_product.description | strip_html | truncatewords: 35 }}
+          {%- endif -%}
+        </div>
+
+        <ul class="true-care-landing__product-points" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'product_point' -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="true-care-landing__check" aria-hidden="true">✓</span>
+                <span>{{ block.settings.text }}</span>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+
+        {%- if landing_product != blank -%}
+          {%- form 'product', landing_product, id: product_form_id, class: 'true-care-landing__product-form' -%}
+            {%- unless landing_product.has_only_default_variant -%}
+              <label class="true-care-landing__variant-label" for="TrueCareVariant-{{ section.id }}">
+                {{ 'products.product.choose_options' | t | default: 'اختاري النوع' }}
+              </label>
+              <select id="TrueCareVariant-{{ section.id }}" name="id" class="true-care-landing__variant-select">
+                {%- for variant in landing_product.variants -%}
+                  <option value="{{ variant.id }}"{% if variant == selected_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                    {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}
+                  </option>
+                {%- endfor -%}
+              </select>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ selected_variant.id }}">
+            {%- endunless -%}
+
+            <div class="true-care-landing__buy-row">
+              <div class="true-care-landing__quantity" data-quantity-selector>
+                <button type="button" data-quantity-action="increase" aria-label="{{ 'products.product.quantity.increase' | t: product: landing_product.title | escape }}">+</button>
+                <input
+                  type="number"
+                  name="quantity"
+                  value="1"
+                  min="1"
+                  inputmode="numeric"
+                  aria-label="{{ 'products.product.quantity.input_label' | t: product: landing_product.title | escape }}"
+                >
+                <button type="button" data-quantity-action="decrease" aria-label="{{ 'products.product.quantity.decrease' | t: product: landing_product.title | escape }}">−</button>
+              </div>
+              <button
+                type="submit"
+                name="add"
+                class="true-care-landing__add-button hdt-btn hdt-btn-solid hdt-font-semibold"
+                {% unless selected_variant.available %}disabled{% endunless %}
+              >
+                {%- if selected_variant.available -%}
+                  {{ section.settings.add_to_cart_label }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </button>
+            </div>
+          {%- endform -%}
+        {%- endif -%}
+
+        <div class="true-care-landing__bundles">
+          {%- if section.settings.bundle_heading != blank -%}
+            <p class="true-care-landing__bundles-heading">{{ section.settings.bundle_heading }}</p>
+          {%- endif -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'bundle_product' -%}
+              {%- assign bundle_product = block.settings.product -%}
+              <article class="true-care-landing__bundle" {{ block.shopify_attributes }}>
+                <div class="true-care-landing__bundle-media">
+                  {%- if bundle_product.featured_image != blank -%}
+                    {{ bundle_product.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 140, 180', sizes: '64px' }}
+                  {%- else -%}
+                    {{ 'product-2' | placeholder_svg_tag: 'true-care-landing__placeholder' }}
+                  {%- endif -%}
+                </div>
+                <div class="true-care-landing__bundle-copy">
+                  <h3>{{ block.settings.heading | default: bundle_product.title }}</h3>
+                  {%- if bundle_product != blank -%}<p>{{ bundle_product.price | money }}</p>{%- endif -%}
+                </div>
+                {%- if bundle_product.available -%}
+                  {%- form 'product', bundle_product, class: 'true-care-landing__bundle-form' -%}
+                    <input type="hidden" name="id" value="{{ bundle_product.selected_or_first_available_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="true-care-landing__bundle-button">{{ block.settings.button_label }}</button>
+                  {%- endform -%}
+                {%- endif -%}
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__comparison true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.comparison_kicker }}</p>
+        <h2>{{ section.settings.comparison_heading }}</h2>
+        <div>{{ section.settings.comparison_subheading }}</div>
+      </header>
+
+      <div class="true-care-landing__comparison-grid">
+        <article class="true-care-landing__comparison-card true-care-landing__comparison-card--before">
+          <span class="true-care-landing__comparison-status true-care-landing__comparison-status--before" aria-hidden="true">×</span>
+          <h3>{{ section.settings.before_heading }}</h3>
+          <div class="hdt-rte">{{ section.settings.before_content | newline_to_br }}</div>
+        </article>
+
+        <div class="true-care-landing__comparison-media" data-comparison>
+          {%- if section.settings.before_image != blank -%}
+            {{ section.settings.before_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '375, 550, 750, 900', sizes: '(min-width: 768px) 360px, calc(100vw - 30px)', class: 'true-care-landing__comparison-image' }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'true-care-landing__comparison-image true-care-landing__placeholder' }}
+          {%- endif -%}
+          <div class="true-care-landing__comparison-after" aria-hidden="true">
+            {%- if section.settings.after_image != blank -%}
+              {{ section.settings.after_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '375, 550, 750, 900', sizes: '(min-width: 768px) 360px, calc(100vw - 30px)', class: 'true-care-landing__comparison-image' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'true-care-landing__comparison-image true-care-landing__placeholder' }}
+            {%- endif -%}
+          </div>
+          <span class="true-care-landing__comparison-line" aria-hidden="true"></span>
+          <span class="true-care-landing__comparison-handle" aria-hidden="true">↔</span>
+          <label class="hdt-hidden" for="TrueCareComparison-{{ section.id }}">{{ section.settings.comparison_control_label }}</label>
+          <input
+            id="TrueCareComparison-{{ section.id }}"
+            class="true-care-landing__comparison-range"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            data-comparison-range
+          >
+        </div>
+
+        <article class="true-care-landing__comparison-card true-care-landing__comparison-card--after">
+          <span class="true-care-landing__comparison-status true-care-landing__comparison-status--after" aria-hidden="true">✓</span>
+          <h3>{{ section.settings.after_heading }}</h3>
+          <div class="hdt-rte">{{ section.settings.after_content | newline_to_br }}</div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__usage true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.usage_kicker }}</p>
+        <h2>{{ section.settings.usage_heading }}</h2>
+        <div>{{ section.settings.usage_subheading }}</div>
+      </header>
+      {%- assign usage_steps = section.blocks | where: 'type', 'usage_step' -%}
+      <ol class="true-care-landing__steps">
+        {%- for block in usage_steps -%}
+          <li class="true-care-landing__step" {{ block.shopify_attributes }}>
+            <span class="true-care-landing__step-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <div>
+              <h3>{{ block.settings.heading }}</h3>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+
+  <div class="true-care-landing__benefits true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.benefits_kicker }}</p>
+        <h2>{{ section.settings.benefits_heading }}</h2>
+        <div>{{ section.settings.benefits_subheading }}</div>
+      </header>
+      <div class="true-care-landing__benefits-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'benefit' -%}
+            <article class="true-care-landing__benefit" {{ block.shopify_attributes }}>
+              <span class="true-care-landing__benefit-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+              <div>
+                <h3>{{ block.settings.heading }}</h3>
+                <p>{{ block.settings.text }}</p>
+                {%- if block.settings.note != blank -%}<small>{{ block.settings.note }}</small>{%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__reviews true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.reviews_kicker }}</p>
+        <h2>{{ section.settings.reviews_heading }}</h2>
+        <div>{{ section.settings.reviews_subheading }}</div>
+      </header>
+
+      <div class="true-care-landing__review-summary">
+        <div class="true-care-landing__review-score">
+          <div class="true-care-landing__stars" aria-label="{{ section.settings.rating }} من 5">★★★★★</div>
+          <strong>{{ section.settings.rating }}</strong>
+          <span>{{ section.settings.review_count_label }}</span>
+        </div>
+        <div class="true-care-landing__rating-bars" aria-hidden="true">
+          {%- for rating_number in (1..5) reversed -%}
+            {%- assign bar_width = rating_number | times: 18 -%}
+            <div><span>{{ rating_number }}</span><i><b style="width: {{ bar_width }}%"></b></i><em>★★★★★</em></div>
+          {%- endfor -%}
+        </div>
+        {%- if section.settings.review_link != blank -%}
+          <a class="true-care-landing__review-cta" href="{{ section.settings.review_link }}">{{ section.settings.review_button_label }}</a>
+        {%- else -%}
+          <span class="true-care-landing__review-cta" role="link" aria-disabled="true">{{ section.settings.review_button_label }}</span>
+        {%- endif -%}
+      </div>
+
+      <div class="true-care-landing__review-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <article class="true-care-landing__review" {{ block.shopify_attributes }}>
+              <div class="true-care-landing__stars" aria-label="5 من 5">★★★★★</div>
+              <h3>{{ block.settings.author }}</h3>
+              {%- if block.settings.verified_label != blank -%}<span class="true-care-landing__verified">✓ {{ block.settings.verified_label }}</span>{%- endif -%}
+              <p>{{ block.settings.text }}</p>
+              {%- if block.settings.date != blank -%}<time>{{ block.settings.date }}</time>{%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__faq true-care-landing__section">
+    <div class="hdt-container true-care-landing__narrow">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.faq_kicker }}</p>
+        <h2>{{ section.settings.faq_heading }}</h2>
+        <div>{{ section.settings.faq_subheading }}</div>
+      </header>
+      <div class="true-care-landing__faq-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq' -%}
+            <details class="true-care-landing__faq-item" {{ block.shopify_attributes }}{% if block.settings.open %} open{% endif %}>
+              <summary>
+                <span>{{ block.settings.question }}</span>
+                <span class="true-care-landing__faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="true-care-landing__faq-answer hdt-rte">{{ block.settings.answer }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__products true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <p>{{ section.settings.products_kicker }}</p>
+        <h2>{{ section.settings.products_heading }}</h2>
+        <div>{{ section.settings.products_subheading }}</div>
+      </header>
+      <div class="true-care-landing__product-grid">
+        {%- if section.settings.complementary_products != blank -%}
+          {%- for card_product in section.settings.complementary_products limit: 4 -%}
+            <article class="true-care-landing__product-card">
+              <a href="{{ card_product.url }}" class="true-care-landing__product-card-media">
+                {%- if card_product.featured_image != blank -%}
+                  {{ card_product.featured_image | image_url: width: 650 | image_tag: loading: 'lazy', widths: '180, 300, 450, 650', sizes: '(min-width: 768px) 25vw, 44vw' }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'true-care-landing__placeholder' }}
+                {%- endif -%}
+              </a>
+              <div class="true-care-landing__product-card-copy">
+                <h3><a href="{{ card_product.url }}">{{ card_product.title }}</a></h3>
+                <p>{{ card_product.price | money }}</p>
+                {%- if card_product.available -%}
+                  {%- form 'product', card_product -%}
+                    <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">{{ section.settings.product_card_button_label }}</button>
+                  {%- endform -%}
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for index in (1..4) -%}
+            <article class="true-care-landing__product-card">
+              <div class="true-care-landing__product-card-media">{{ 'product-' | append: index | placeholder_svg_tag: 'true-care-landing__placeholder' }}</div>
+              <div class="true-care-landing__product-card-copy"><h3>{{ section.settings.placeholder_product_title }}</h3><p>{{ 1400 | money }}</p><button type="button" disabled>{{ section.settings.product_card_button_label }}</button></div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="true-care-landing__videos true-care-landing__section">
+    <div class="hdt-container">
+      <header class="true-care-landing__section-heading">
+        <h2>{{ section.settings.videos_heading }}</h2>
+        <div>{{ section.settings.videos_subheading }}</div>
+      </header>
+      <div class="true-care-landing__video-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'video_card' -%}
+            <article class="true-care-landing__video-card" {{ block.shopify_attributes }}>
+              {%- if block.settings.video_url != blank -%}<a href="{{ block.settings.video_url }}" aria-label="{{ block.settings.heading | escape }}">{%- endif -%}
+                <div class="true-care-landing__video-media">
+                  {%- if block.settings.cover_image != blank -%}
+                    {{ block.settings.cover_image | image_url: width: 650 | image_tag: loading: 'lazy', widths: '180, 300, 450, 650', sizes: '(min-width: 768px) 17vw, 44vw' }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'true-care-landing__placeholder' }}
+                  {%- endif -%}
+                  <span class="true-care-landing__play" aria-hidden="true">▶</span>
+                </div>
+                <div class="true-care-landing__video-copy">
+                  <h3>{{ block.settings.heading }}</h3>
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              {%- if block.settings.video_url != blank -%}</a>{%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const initTrueCareSection = (root) => {
+      if (!root || root.dataset.trueCareReady === 'true') return;
+      root.dataset.trueCareReady = 'true';
+
+      const comparison = root.querySelector('[data-comparison]');
+      const comparisonRange = root.querySelector('[data-comparison-range]');
+      if (comparison && comparisonRange) {
+        const updateComparison = () => comparison.style.setProperty('--comparison-position', `${comparisonRange.value}%`);
+        comparisonRange.addEventListener('input', updateComparison);
+        updateComparison();
+      }
+
+      const mainImage = root.querySelector('.true-care-landing__main-image');
+      root.querySelectorAll('[data-gallery-thumbnail]').forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+          if (!mainImage) return;
+          mainImage.src = thumbnail.dataset.imageUrl;
+          mainImage.alt = thumbnail.dataset.imageAlt || '';
+          mainImage.removeAttribute('srcset');
+          mainImage.removeAttribute('sizes');
+          root.querySelectorAll('[data-gallery-thumbnail]').forEach((item) => {
+            const isCurrent = item === thumbnail;
+            item.classList.toggle('is-active', isCurrent);
+            item.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+          });
+        });
+      });
+
+      root.querySelectorAll('[data-quantity-selector]').forEach((selector) => {
+        const input = selector.querySelector('input[type="number"]');
+        if (!input) return;
+        selector.querySelectorAll('[data-quantity-action]').forEach((button) => {
+          button.addEventListener('click', () => {
+            const current = Number.parseInt(input.value, 10) || 1;
+            input.value = button.dataset.quantityAction === 'increase' ? current + 1 : Math.max(1, current - 1);
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+        });
+      });
+    };
+
+    document.querySelectorAll('[data-true-care-section]').forEach(initTrueCareSection);
+    document.addEventListener('shopify:section:load', (event) => {
+      initTrueCareSection(event.target.querySelector('[data-true-care-section]'));
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "True Care product landing",
+  "tag": "section",
+  "class": "hdt-section true-care-product-landing-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 50,
+  "settings": [
+    { "type": "header", "content": "Product hero" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "text", "id": "product_kicker", "label": "Product kicker", "default": "ترو كير • عناية يومية" },
+    { "type": "text", "id": "product_heading", "label": "Product heading", "default": "شامبو لتنقية فروة الرأس" },
+    { "type": "text", "id": "product_subheading", "label": "Product subheading", "default": "300 مل" },
+    { "type": "richtext", "id": "product_description", "label": "Product description", "default": "<p>تركيبة متوازنة تنظف فروة الرأس بلطف وتساعد على إزالة التراكمات والشوائب دون أن تفقد الشعر ترطيبه الطبيعي.</p>" },
+    { "type": "text", "id": "sale_badge_label", "label": "Sale badge label", "default": "وفري" },
+    { "type": "text", "id": "add_to_cart_label", "label": "Add to cart label", "default": "أضف إلى السلة" },
+    { "type": "text", "id": "bundle_heading", "label": "Bundle heading", "default": "خذي روتيناً متكاملاً" },
+
+    { "type": "header", "content": "Before and after" },
+    { "type": "text", "id": "comparison_kicker", "label": "Kicker", "default": "تغيير يبان من أول مرة" },
+    { "type": "text", "id": "comparison_heading", "label": "Heading", "default": "من أول استخدام بتلاحظين الفرق" },
+    { "type": "text", "id": "comparison_subheading", "label": "Subheading", "default": "عناية متوازنة تبدأ من فروة نظيفة وشعر أكثر حيوية" },
+    { "type": "image_picker", "id": "before_image", "label": "Before image" },
+    { "type": "image_picker", "id": "after_image", "label": "After image" },
+    { "type": "text", "id": "before_heading", "label": "Before heading", "default": "قبل الاستخدام" },
+    { "type": "textarea", "id": "before_content", "label": "Before content", "default": "تراكم دهني يثقل الشعر\nقشور وحكة مزعجة\nفروة غير متوازنة\nإحساس بعدم الانتعاش" },
+    { "type": "text", "id": "after_heading", "label": "After heading", "default": "بعد الاستخدام" },
+    { "type": "textarea", "id": "after_content", "label": "After content", "default": "فروة أنظف وأكثر راحة\nانتعاش يدوم لفترة أطول\nشعر أخف وأكثر حيوية\nإحساس واضح بالنظافة" },
+    { "type": "text", "id": "comparison_control_label", "label": "Comparison control label", "default": "اسحبي للمقارنة بين قبل وبعد" },
+
+    { "type": "header", "content": "Usage and benefits" },
+    { "type": "text", "id": "usage_kicker", "label": "Usage kicker", "default": "روتين بسيط" },
+    { "type": "text", "id": "usage_heading", "label": "Usage heading", "default": "طريقة الاستخدام" },
+    { "type": "text", "id": "usage_subheading", "label": "Usage subheading", "default": "5 خطوات بسيطة — لنتيجة ملحوظة من أول استعمال" },
+    { "type": "text", "id": "benefits_kicker", "label": "Benefits kicker", "default": "مكونات مختارة بعناية" },
+    { "type": "text", "id": "benefits_heading", "label": "Benefits heading", "default": "ما هي مكوناته؟" },
+    { "type": "text", "id": "benefits_subheading", "label": "Benefits subheading", "default": "تركيبة لطيفة وفعالة — مناسبة للروتين اليومي" },
+
+    { "type": "header", "content": "Reviews" },
+    { "type": "text", "id": "reviews_kicker", "label": "Reviews kicker", "default": "تجارب حقيقية" },
+    { "type": "text", "id": "reviews_heading", "label": "Reviews heading", "default": "عميلاتنا يتحدثن عن تجربتهم" },
+    { "type": "text", "id": "reviews_subheading", "label": "Reviews subheading", "default": "آراء موثوقة من عميلات استخدمن المنتج" },
+    { "type": "text", "id": "rating", "label": "Average rating", "default": "4.30" },
+    { "type": "text", "id": "review_count_label", "label": "Review count label", "default": "بناءً على 10 تقييمات" },
+    { "type": "text", "id": "review_button_label", "label": "Review button label", "default": "اكتبي تقييماً" },
+    { "type": "url", "id": "review_link", "label": "Review button link" },
+
+    { "type": "header", "content": "FAQ and recommendations" },
+    { "type": "text", "id": "faq_kicker", "label": "FAQ kicker", "default": "أسئلة شائعة" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "عندك سؤال؟" },
+    { "type": "text", "id": "faq_subheading", "label": "FAQ subheading", "default": "إجابات على أكثر الأسئلة التي تصلنا عن المنتج" },
+    { "type": "text", "id": "products_kicker", "label": "Products kicker", "default": "كملي روتينك" },
+    { "type": "text", "id": "products_heading", "label": "Products heading", "default": "منتجات تكمل العناية" },
+    { "type": "text", "id": "products_subheading", "label": "Products subheading", "default": "كل ما يحتاجه شعرك من روتين متكامل" },
+    { "type": "product_list", "id": "complementary_products", "label": "Complementary products", "limit": 4 },
+    { "type": "text", "id": "product_card_button_label", "label": "Product card button", "default": "أضف إلى السلة" },
+    { "type": "text", "id": "placeholder_product_title", "label": "Placeholder product title", "default": "منتج عناية مكمل" },
+    { "type": "text", "id": "videos_heading", "label": "Videos heading", "default": "جاهزة تجربين روتين شعرك؟" },
+    { "type": "text", "id": "videos_subheading", "label": "Videos subheading", "default": "شاهدي تجارب ونصائح حقيقية من مجتمع ترو كير" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#f48e75" },
+    { "type": "color", "id": "accent_dark_color", "label": "Dark accent", "default": "#e36f55" },
+    { "type": "color", "id": "soft_background", "label": "Soft background", "default": "#fff8f3" },
+    { "type": "color", "id": "warm_background", "label": "Warm background", "default": "#ffe2c8" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#24201f" }
+  ],
+  "blocks": [
+    {
+      "type": "product_point",
+      "name": "Product point",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "ينظف فروة الرأس بلطف دون أن يجففها" }
+      ]
+    },
+    {
+      "type": "bundle_product",
+      "name": "Bundle product",
+      "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "heading", "label": "Custom heading", "default": "منتج مكمل للعناية" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "أضف" }
+      ]
+    },
+    {
+      "type": "usage_step",
+      "name": "Usage step",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "بللي شعرك" },
+        { "type": "text", "id": "text", "label": "Text", "default": "بالماء الدافئ جيداً" }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Icon or symbol", "default": "✦" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "مكونات فعالة" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "تساعد على تنظيف فروة الرأس والمحافظة على توازنها الطبيعي." },
+        { "type": "text", "id": "note", "label": "Accent note", "default": "لطيف وفعال" }
+      ]
+    },
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "author", "label": "Author", "default": "عميلة ترو كير" },
+        { "type": "text", "id": "verified_label", "label": "Verified label", "default": "شراء موثق" },
+        { "type": "textarea", "id": "text", "label": "Review", "default": "فرق واضح من أول استخدام، فروة رأسي صارت أنظف وشعري أخف." },
+        { "type": "text", "id": "date", "label": "Date" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "هل المنتج مناسب للاستخدام اليومي؟" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>نعم، صُممت تركيبته لتكون لطيفة ومناسبة للاستخدام المنتظم حسب احتياج فروة الرأس.</p>" },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    },
+    {
+      "type": "video_card",
+      "name": "Video card",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "cover_image", "label": "Cover image" },
+        { "type": "video_url", "id": "video_url", "label": "Video URL", "accept": ["youtube", "vimeo"] },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "تجربة حقيقية" },
+        { "type": "text", "id": "text", "label": "Text", "default": "روتين عناية ترو كير" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care product landing",
+      "category": "Products",
+      "blocks": [
+        { "type": "product_point", "settings": { "text": "ينظف فروة الرأس من التراكمات والشوائب" } },
+        { "type": "product_point", "settings": { "text": "يساعد على تقليل القشور والإحساس بالحكة" } },
+        { "type": "product_point", "settings": { "text": "يمنح الشعر إحساساً بالخفة والانتعاش" } },
+        { "type": "bundle_product" },
+        { "type": "bundle_product" },
+        { "type": "usage_step", "settings": { "heading": "بللي شعرك", "text": "بالماء الدافئ جيداً" } },
+        { "type": "usage_step", "settings": { "heading": "ضعي الشامبو", "text": "كمية مناسبة على الفروة" } },
+        { "type": "usage_step", "settings": { "heading": "دلكي بلطف", "text": "بحركات دائرية هادئة" } },
+        { "type": "usage_step", "settings": { "heading": "اشطفي جيداً", "text": "حتى تزول الرغوة بالكامل" } },
+        { "type": "usage_step", "settings": { "heading": "كرري 2–3 مرات", "text": "أسبوعياً أو حسب الحاجة" } },
+        { "type": "benefit", "settings": { "icon": "✦", "heading": "بروفيتامين B5", "text": "يساعد على ترطيب الشعر وتحسين ملمسه.", "note": "شعر أكثر نعومة" } },
+        { "type": "benefit", "settings": { "icon": "⚘", "heading": "النياسيناميد", "text": "يدعم توازن فروة الرأس ويحافظ على راحتها.", "note": "فروة متوازنة" } },
+        { "type": "benefit", "settings": { "icon": "♢", "heading": "تنقية لطيفة", "text": "إزالة التراكمات بدون تجريد الشعر من ترطيبه.", "note": "نظافة بلا جفاف" } },
+        { "type": "benefit", "settings": { "icon": "◈", "heading": "توازن فروة الرأس", "text": "تركيبة مناسبة للروتين المنتظم.", "note": "إحساس يدوم" } },
+        { "type": "benefit", "settings": { "icon": "⚑", "heading": "مستخلصات نباتية", "text": "عناية يومية مستوحاة من الطبيعة.", "note": "عناية متكاملة" } },
+        { "type": "benefit", "settings": { "icon": "⌁", "heading": "انتعاش مستمر", "text": "يساعد الشعر على استعادة خفته وحيويته.", "note": "ملمس أخف" } },
+        { "type": "review", "settings": { "author": "سارة عبدالله", "verified_label": "شراء موثق", "text": "الفروة صارت أنظف بكثير والنتيجة ظهرت بسرعة.", "date": "03/08/2026" } },
+        { "type": "review", "settings": { "author": "نورة العتيبي", "verified_label": "شراء موثق", "text": "أحببت الإحساس بالانتعاش وأنه ما جفف شعري.", "date": "03/20/2026" } },
+        { "type": "review", "settings": { "author": "ريم خالد", "verified_label": "شراء موثق", "text": "صار جزءاً أساسياً من روتيني الأسبوعي.", "date": "04/02/2026" } },
+        { "type": "faq", "settings": { "question": "هل المنتج مناسب للاستخدام اليومي؟" } },
+        { "type": "faq", "settings": { "question": "متى ألاحظ النتيجة الأولى؟" } },
+        { "type": "faq", "settings": { "question": "هل يناسب جميع أنواع الشعر؟" } },
+        { "type": "faq", "settings": { "question": "هل يسبب المنتج الجفاف؟" } },
+        { "type": "faq", "settings": { "question": "كم مرة أستخدمه أسبوعياً؟" } },
+        { "type": "faq", "settings": { "question": "هل يمكن استخدامه للشعر المصبوغ؟" } },
+        { "type": "video_card" },
+        { "type": "video_card" },
+        { "type": "video_card" },
+        { "type": "video_card" },
+        { "type": "video_card" },
+        { "type": "video_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

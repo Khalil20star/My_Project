@@ -1,0 +1,184 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="CTA-Strip-{{ section.id }}"
+  class="tc-section tc-videos tc-cta-strip tc-section__body"
+  dir="rtl"
+  style="--tc-video-background: {{ section.settings.background_color }}; --tc-padding-top: {{ section.settings.padding_top }}px; --tc-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="tc-container">
+    <header class="tc-heading">
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="tc-heading__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </header>
+
+    <div class="tc-videos__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'video' -%}
+          {%- liquid
+            assign card_product = block.settings.product
+            assign card_title = block.settings.title
+            assign card_link = block.settings.link
+
+            if card_product != blank
+              if card_title == blank
+                assign card_title = card_product.title
+              endif
+              assign card_link = card_product.url
+            endif
+
+            if card_title == blank
+              assign card_title = 'منتج True Care'
+            endif
+
+            if card_link == blank
+              assign card_link = routes.root_url
+            endif
+
+            case block.settings.fallback_poster
+              when 'care_box'
+                assign fallback_poster = 'true-care-video-care-box.jpg'
+                assign fallback_icon = 'true-care-routine-box.jpg'
+              when 'shampoo'
+                assign fallback_poster = 'true-care-video-shampoo.jpg'
+                assign fallback_icon = 'true-care-hero.jpg'
+              when 'unboxing'
+                assign fallback_poster = 'true-care-video-unboxing.jpg'
+                assign fallback_icon = 'true-care-routine-scrub.jpg'
+              else
+                assign fallback_poster = 'true-care-video-fragrance.jpg'
+                assign fallback_icon = 'true-care-routine-moisturizer.jpg'
+            endcase
+          -%}
+
+          <article class="tc-video" {{ block.shopify_attributes }}>
+            <div class="tc-video__media"{% if block.settings.video != blank %} role="group" aria-label="{{ block.settings.play_label | escape }}"{% endif %}>
+              {%- if block.settings.video != blank -%}
+                {%- if block.settings.poster != blank -%}
+                  {%- assign poster_url = block.settings.poster | image_url: width: 700 -%}
+                  {{ block.settings.video | video_tag: controls: false, autoplay: false, loop: false, muted: false, playsinline: true, preload: 'metadata', poster: poster_url }}
+                {%- else -%}
+                  {{ block.settings.video | video_tag: controls: false, autoplay: false, loop: false, muted: false, playsinline: true, preload: 'metadata' }}
+                {%- endif -%}
+                <button
+                  type="button"
+                  class="tc-video__play"
+                  data-tc-video-toggle
+                  data-state="paused"
+                  data-play-label="{{ block.settings.play_label | escape }}"
+                  data-pause-label="{{ block.settings.pause_label | escape }}"
+                  aria-label="{{ block.settings.play_label | escape }}"
+                  aria-pressed="false"
+                >
+                  <span class="tc-video__play-icon" aria-hidden="true">
+                    {% render 'icons', icon: 'play' %}
+                  </span>
+                  <span class="tc-video__pause-icon" aria-hidden="true"><span></span><span></span></span>
+                </button>
+              {%- elsif block.settings.poster != blank -%}
+                {{ block.settings.poster | image_url: width: 700 | image_tag: loading: 'lazy', widths: '194, 388, 579, 700', sizes: '(min-width: 768px) 17vw, 48vw', alt: card_title }}
+              {%- else -%}
+                <img src="{{ fallback_poster | asset_url }}" width="579" height="1032" loading="lazy" alt="{{ card_title | escape }}">
+              {%- endif -%}
+            </div>
+
+            <a class="tc-video__copy" href="{{ card_link }}" aria-label="{{ card_title | escape }}">
+              {%- if block.settings.product_icon != blank -%}
+                {{ block.settings.product_icon | image_url: width: 176 | image_tag: loading: 'lazy', widths: '44, 88, 132, 176', sizes: '44px', alt: card_title }}
+              {%- elsif card_product.featured_image != blank -%}
+                {{ card_product.featured_image | image_url: width: 176 | image_tag: loading: 'lazy', widths: '44, 88, 132, 176', sizes: '44px', alt: card_product.featured_image.alt }}
+              {%- else -%}
+                <img src="{{ fallback_icon | asset_url }}" width="176" height="176" loading="lazy" alt="{{ card_title | escape }}">
+              {%- endif -%}
+              <h3>{{ card_title }}</h3>
+            </a>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('CTA-Strip-{{ section.id }}');
+    if (!section || section.dataset.tcVideoControlsReady === 'true') return;
+
+    section.dataset.tcVideoControlsReady = 'true';
+
+    section.querySelectorAll('[data-tc-video-toggle]').forEach((button) => {
+      const media = button.closest('.tc-video__media');
+      const video = media && media.querySelector('video');
+      if (!video) return;
+
+      video.controls = false;
+      video.removeAttribute('controls');
+
+      const syncButton = () => {
+        const isPlaying = !video.paused && !video.ended;
+        button.dataset.state = isPlaying ? 'playing' : 'paused';
+        button.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+        button.setAttribute('aria-label', isPlaying ? button.dataset.pauseLabel : button.dataset.playLabel);
+      };
+
+      button.addEventListener('click', () => {
+        if (video.paused || video.ended) {
+          if (video.ended) video.currentTime = 0;
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(syncButton);
+        } else {
+          video.pause();
+        }
+      });
+
+      video.addEventListener('play', syncButton);
+      video.addEventListener('pause', syncButton);
+      video.addEventListener('ended', syncButton);
+      syncButton();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "CTA strip",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "جاهزة تبدين روتين شعرك؟" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "خصم 30% على بوكس العناية بالفروة والشعر لفترة محدودة" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 24, "max": 100, "step": 4, "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 24, "max": 100, "step": 4, "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video and product",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Shopify-hosted video" },
+        { "type": "image_picker", "id": "poster", "label": "Video poster" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "product_icon", "label": "Product icon override" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "url", "id": "link", "label": "Fallback link" },
+        { "type": "select", "id": "fallback_poster", "label": "Figma fallback", "options": [{ "value": "care_box", "label": "Care box" }, { "value": "shampoo", "label": "Shampoo" }, { "value": "unboxing", "label": "Unboxing" }, { "value": "fragrance", "label": "Fragrance" }], "default": "care_box" },
+        { "type": "text", "id": "play_label", "label": "Play button label", "default": "تشغيل الفيديو" },
+        { "type": "text", "id": "pause_label", "label": "Pause button label", "default": "إيقاف الفيديو مؤقتًا" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA strip",
+      "blocks": [
+        { "type": "video", "settings": { "fallback_poster": "care_box", "title": "بوكس العناية بفروة الشعر" } },
+        { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "شامبو العناية بفروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "fragrance", "title": "عطر الشعر والجسم" } },
+        { "type": "video", "settings": { "fallback_poster": "unboxing", "title": "سنفرة تنظيف فروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "care_box", "title": "شامبو العناية بفروة الرأس" } },
+        { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "بوكس العناية بفروة الشعر" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

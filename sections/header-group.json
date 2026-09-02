@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.name_group.header",
+  "type": "header",
+  "sections": {
+    "true_care_announcement": {
+      "type": "true-care-announcement",
+      "name": "True Care announcement",
+      "settings": {
+        "background_color": "#0e0e0e",
+        "text_color": "#fdf5ee",
+        "accent_color": "#fbbd99"
+      }
+    },
+    "true_care_header": {
+      "type": "true-care-header",
+      "name": "True Care header",
+      "settings": {
+        "menu": "main-menu",
+        "background_color": "#fdf5ee"
+      }
+    }
+  },
+  "order": [
+    "true_care_announcement",
+    "true_care_header"
+  ]
+}

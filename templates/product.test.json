@@ -1,0 +1,911 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "brc-nav-product",
+      "disabled": true,
+      "settings": {
+        "back_next_pr": true,
+        "colors_by_section": true,
+        "color_scheme": "scheme-c9476b69-abc7-454f-a946-2d5a9f5f3a37",
+        "background_opacity": 1,
+        "section_layout": "wrapper_container",
+        "hdt_background_parallax": false,
+        "mg": "",
+        "mg_mb": "",
+        "pd": "20px,,20px,",
+        "pd_mb": "15px,,15px,"
+      }
+    },
+    "true_care_product_hero_pUcRVf": {
+      "type": "true-care-product-hero",
+      "blocks": {
+        "point_HbtYPh": {
+          "type": "point",
+          "settings": {
+            "text": "تنظيف عميق بدون جفاف أو تهيج"
+          }
+        },
+        "point_em6TPe": {
+          "type": "point",
+          "settings": {
+            "text": "مدعوم بمغذيات فعّالة لفروة الرأس والشعر"
+          }
+        },
+        "point_DpMxeK": {
+          "type": "point",
+          "settings": {
+            "text": "خالٍ من البارابين والسيليكون — لطيف على الفروة الحساسة"
+          }
+        },
+        "paired_product_TNfciK": {
+          "type": "paired_product",
+          "settings": {
+            "product": "",
+            "heading": "مرطب للشعر بزبدة الشيا",
+            "fallback_image": "moisturizer",
+            "button_label": "أضف"
+          }
+        },
+        "paired_product_VEPWJx": {
+          "type": "paired_product",
+          "settings": {
+            "product": "",
+            "heading": "سنفرة تنظيف فروة الرأس",
+            "fallback_image": "scrub",
+            "button_label": "أضف"
+          }
+        }
+      },
+      "block_order": [
+        "point_HbtYPh",
+        "point_em6TPe",
+        "point_DpMxeK",
+        "paired_product_TNfciK",
+        "paired_product_VEPWJx"
+      ],
+      "name": "True Care product hero",
+      "settings": {
+        "product": "",
+        "gallery_label": "صور المنتج",
+        "thumbnail_label": "عرض الصورة",
+        "rating_label": "4.8 من 5 (127 تقييم)",
+        "heading": "",
+        "size_label": "500 مل",
+        "description": "<p>تركيبة متوازنة تنظف فروة الرأس من التراكمات والزيوت الزائدة والقشرة بعمق — دون تجفيف الرطوبة الطبيعية.</p>",
+        "saving_label": "وفّري",
+        "variant_label": "اختاري النوع",
+        "quantity_label": "الكمية",
+        "increase_label": "زيادة الكمية",
+        "decrease_label": "تقليل الكمية",
+        "add_to_cart_label": "أضف إلى السلة",
+        "pairs_heading": "عادةً يتم شراؤه مع :",
+        "accent_color": "#ff997f",
+        "sale_color": "#f44336",
+        "soft_background": "#fff7f1"
+      }
+    },
+    "true_care_before_after_fq4aBR": {
+      "type": "true-care-before-after",
+      "blocks": {
+        "after_point_6MNy4g": {
+          "type": "after_point",
+          "settings": {
+            "text": "شعر أنظف وأكثر حيوية"
+          }
+        },
+        "after_point_LD9DAg": {
+          "type": "after_point",
+          "settings": {
+            "text": "فروة راس منتعشة وأنظف"
+          }
+        },
+        "after_point_EYxhPk": {
+          "type": "after_point",
+          "settings": {
+            "text": "نعومة ولمعة واضحة من أول استخدام"
+          }
+        },
+        "after_point_YHGWia": {
+          "type": "after_point",
+          "settings": {
+            "text": "تراكمات أقل وشعر أكثر حيوية"
+          }
+        },
+        "before_point_fKkPwq": {
+          "type": "before_point",
+          "settings": {
+            "text": "شعر باهت وثقيل"
+          }
+        },
+        "before_point_dX4T6M": {
+          "type": "before_point",
+          "settings": {
+            "text": "تشابك وصعوبة بالتمشيط"
+          }
+        },
+        "before_point_fr6mqp": {
+          "type": "before_point",
+          "settings": {
+            "text": "فروة تحتاج تنظيف وتوازن"
+          }
+        },
+        "before_point_X9NntX": {
+          "type": "before_point",
+          "settings": {
+            "text": "تراكمات زيوت وبقايا منتجات"
+          }
+        }
+      },
+      "block_order": [
+        "after_point_6MNy4g",
+        "after_point_LD9DAg",
+        "after_point_EYxhPk",
+        "after_point_YHGWia",
+        "before_point_fKkPwq",
+        "before_point_dX4T6M",
+        "before_point_fr6mqp",
+        "before_point_X9NntX"
+      ],
+      "name": "True Care Before/After",
+      "settings": {
+        "top_label": "قـبـل و بـعـد",
+        "heading": "من أول استخدام بتلاحظين الفرق",
+        "subtitle": "روتين يساعد على تنظيف الفروة، تقليل التراكمات، ويدعم كثافة الشعر",
+        "before_image": "shopify://shop_images/Before.webp",
+        "after_image": "shopify://shop_images/after.png",
+        "before_title": "قبل الاستخدام",
+        "after_title": "بعد الاستخدام",
+        "slider_label": "مقارنة صورة قبل وبعد",
+        "initial_position": 50,
+        "background_color": "#fdf5ee",
+        "heading_color": "#0e0e0e",
+        "body_color": "#625d5b",
+        "muted_color": "#9f9896",
+        "accent_color": "#f59f87",
+        "success_color": "#2ec76f",
+        "danger_color": "#f59f87",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "true_care_usage_steps_KxnE3b": {
+      "type": "true-care-usage-steps",
+      "blocks": {
+        "step_KKfcjp": {
+          "type": "step",
+          "settings": {
+            "heading": "بللي الشعر",
+            "text": "بالماء جيداً قبل الشامبو"
+          }
+        },
+        "step_fPQTKG": {
+          "type": "step",
+          "settings": {
+            "heading": "ضعي الشامبو",
+            "text": "كمية مناسبة على الفروة"
+          }
+        },
+        "step_EqJgNQ": {
+          "type": "step",
+          "settings": {
+            "heading": "دلكي برفق",
+            "text": "حتى يتكوّن رغوة جيداً"
+          }
+        },
+        "step_8ebRdp": {
+          "type": "step",
+          "settings": {
+            "heading": "اشطفي جيداً",
+            "text": "بالماء حتى النظافة التامة"
+          }
+        },
+        "step_9DFwdQ": {
+          "type": "step",
+          "settings": {
+            "heading": "كرري 2–3 مرات",
+            "text": "أسبوعياً أو حسب الحاجة"
+          }
+        }
+      },
+      "block_order": [
+        "step_KKfcjp",
+        "step_fPQTKG",
+        "step_EqJgNQ",
+        "step_8ebRdp",
+        "step_9DFwdQ"
+      ],
+      "name": "True Care usage steps",
+      "settings": {
+        "kicker": "خطوة بخطوة",
+        "heading": "طريقة الاستخدام",
+        "subheading": "5 خطوات بسيطة — نتيجة تلاحظينها من أول غسيل",
+        "accent_color": "#ff997f",
+        "padding_top": 40,
+        "padding_bottom": 52,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "true_care_ingredients_Rat3MK": {
+      "type": "true-care-ingredients",
+      "blocks": {
+        "ingredient_6e8reE": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download.svg",
+            "symbol": "",
+            "heading": "البانثينول (Pro-B5)",
+            "text": "يرطب الشعر بعمق ويعزز نعومته ومرونته من أول استخدام",
+            "note": "مرطب عميق · يعزز النعومة"
+          }
+        },
+        "ingredient_KrPUeC": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download_1.svg",
+            "symbol": "",
+            "heading": "الألوفيرا",
+            "text": "يهدئ فروة الرأس المتهيجة أو الحساسة ويمنحها ترطيباً فورياً",
+            "note": "مهدئ · مرطب · لطيف"
+          }
+        },
+        "ingredient_xBGR3g": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download_2.svg",
+            "symbol": "",
+            "heading": "زيت شجرة الشاي",
+            "text": "ينقي فروة الرأس ويقلل البكتيريا ويساعد على تخفيف القشرة",
+            "note": "مطهر طبيعي · مضاد للقشرة"
+          }
+        },
+        "ingredient_mbUikz": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download_3.svg",
+            "symbol": "",
+            "heading": "تركيبة خالية من الضار",
+            "text": "بدون بارابين أو سيليكون — آمنة للاستخدام اليومي وعلى الشعر المصبوغ",
+            "note": "خالية من البارابين والسيليكون"
+          }
+        },
+        "ingredient_URtWBA": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download_4.svg",
+            "symbol": "",
+            "heading": "مستخلص برعم البازلاء",
+            "text": "يحفز الدورة الدموية ويدعم حيوية الجذور ونمو الشعر",
+            "note": "محفز للنمو · يدعم الجذور"
+          }
+        },
+        "ingredient_f7XetG": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/download_5.svg",
+            "symbol": "",
+            "heading": "الكافيين والبيوتين",
+            "text": "يقويان بصيلات الشعر لتقليل التساقط ودعم صحة فروة الرأس",
+            "note": "يقوي البصيلات · يقلل التساقط"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_6e8reE",
+        "ingredient_KrPUeC",
+        "ingredient_xBGR3g",
+        "ingredient_mbUikz",
+        "ingredient_URtWBA",
+        "ingredient_f7XetG"
+      ],
+      "custom_css": [],
+      "name": "True Care ingredients",
+      "settings": {
+        "kicker": "المكونات الفعّالة",
+        "heading": "ما هي محتوياته؟",
+        "subheading": "تركيبة نظيفة — خالية من البارابين والسيليكون",
+        "background_color": "#fff7f1",
+        "accent_color": "#ff997f",
+        "padding_top": 52,
+        "padding_bottom": 60
+      }
+    },
+    "true_care_reviews_ENapBj": {
+      "type": "true-care-reviews",
+      "blocks": {
+        "review_TnqcCp": {
+          "type": "review",
+          "settings": {
+            "author": "جنان الملا",
+            "rating": 5,
+            "verified_label": "موثق",
+            "title": "أحب شكل الزجاجة",
+            "text": "أحببت شكل الزجاجة والرائحة، أحلى عطر جربته في حياتي.",
+            "date": "03/20/2026"
+          }
+        },
+        "review_hbatNE": {
+          "type": "review",
+          "settings": {
+            "author": "فهد القحطاني",
+            "rating": 5,
+            "verified_label": "موثق",
+            "title": "يستحق كل فلس.",
+            "text": "كنت متردد لما شريته، لكن بعد ما جربته حسيت أنه يستحق كل فلس.",
+            "date": "03/20/2026"
+          }
+        },
+        "review_ehmdmr": {
+          "type": "review",
+          "settings": {
+            "author": "راشد السعيد",
+            "rating": 5,
+            "verified_label": "موثق",
+            "title": "ريحتها مميزة وفخمة",
+            "text": "ريحتها مميزة وفخمة، كل اللي يجربها يقول لي عنها، وأكيد أحبها.",
+            "date": "03/20/2026"
+          }
+        }
+      },
+      "block_order": [
+        "review_TnqcCp",
+        "review_hbatNE",
+        "review_ehmdmr"
+      ],
+      "name": "True Care reviews",
+      "settings": {
+        "heading": "عملاؤنا يتحدثون عن تجربتهم",
+        "subheading": "تجربتك معنا يجب أن تكون استثنائية من البداية للنهاية",
+        "rating": "4.30",
+        "review_count_label": "بناءً على 10 مراجعات",
+        "distribution_5": 7,
+        "distribution_4": 1,
+        "distribution_3": 1,
+        "distribution_2": 0,
+        "distribution_1": 1,
+        "review_button_label": "كتابة مراجعة",
+        "review_link": "",
+        "accent_color": "#ff997f",
+        "green_color": "#2f7f65",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "true_care_faq_8xbykn": {
+      "type": "true-care-faq",
+      "blocks": {
+        "faq_g4ThKw": {
+          "type": "faq",
+          "settings": {
+            "question": "هل الشامبو مناسب للاستخدام اليومي؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        },
+        "faq_6GQMLq": {
+          "type": "faq",
+          "settings": {
+            "question": "هل هو مناسب لفروة الرأس الحساسة؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        },
+        "faq_jfkdXh": {
+          "type": "faq",
+          "settings": {
+            "question": "متى تبدأ ظهور النتائج؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        },
+        "faq_GtiRiq": {
+          "type": "faq",
+          "settings": {
+            "question": "هل يصلح للشعر المصبوغ؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        },
+        "faq_mALQjL": {
+          "type": "faq",
+          "settings": {
+            "question": "هل يساعد على تقليل التساقط؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        },
+        "faq_aQrymQ": {
+          "type": "faq",
+          "settings": {
+            "question": "هل يُشحن لخارج الكويت؟",
+            "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_g4ThKw",
+        "faq_6GQMLq",
+        "faq_jfkdXh",
+        "faq_GtiRiq",
+        "faq_mALQjL",
+        "faq_aQrymQ"
+      ],
+      "name": "True Care FAQ",
+      "settings": {
+        "kicker": "أسئلة شائعة",
+        "heading": "عندك سؤال؟",
+        "subheading": "إجابات على أكثر الأسئلة اللي تسألينها عن الشامبو",
+        "background_color": "#fff7f1",
+        "accent_color": "#ff997f",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "true_care_routine_products_Fx9WPn": {
+      "type": "true-care-routine-products",
+      "custom_css": [
+        "a {display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}"
+      ],
+      "name": "True Care routine",
+      "settings": {
+        "kicker": "أكملي روتينك",
+        "heading": "منتجات تكمل العناية",
+        "subheading": "كل منتج مصمم ليتكامل مع الآخر",
+        "products": [
+          "فرشاة-فك-تشابك-الشعر",
+          "مرطب-للشعر-بزبدة-الشيا",
+          "سنفرة-تنظيف-فروة-الرأس-العميقة",
+          "بوكس-العناية-بفروة-الشعر-1"
+        ],
+        "discount_label": "خصم 30%",
+        "button_label": "أضف الى السلة",
+        "background_color": "#fde2cb",
+        "accent_color": "#ff997f",
+        "price_color": "#f44336",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "cta_strip_LiEFhk": {
+      "type": "cta-strip",
+      "blocks": {
+        "video_wrzfLj": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/8.mp4",
+            "product": "بوكس-العناية-بفروة-الشعر-1",
+            "title": "بوكس العناية بفروة الشعر",
+            "link": "",
+            "fallback_poster": "care_box",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        },
+        "video_i9zjij": {
+          "type": "video",
+          "settings": {
+            "product": "شامبو-العناية-بفروة-الرأس",
+            "title": "شامبو العناية بفروة الرأس",
+            "link": "",
+            "fallback_poster": "shampoo",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        },
+        "video_FcW8an": {
+          "type": "video",
+          "settings": {
+            "product": "شامبو-العناية-بفروة-الرأس",
+            "title": "عطر الشعر والجسم",
+            "link": "",
+            "fallback_poster": "fragrance",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        },
+        "video_AGWFkr": {
+          "type": "video",
+          "settings": {
+            "product": "سنفرة-تنظيف-فروة-الرأس-العميقة",
+            "title": "سنفرة تنظيف فروة الرأس",
+            "link": "",
+            "fallback_poster": "unboxing",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        },
+        "video_aQfqmf": {
+          "type": "video",
+          "settings": {
+            "product": "بوكس-العناية-بفروة-الشعر-1",
+            "title": "",
+            "link": "",
+            "fallback_poster": "care_box",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        },
+        "video_x3JwaP": {
+          "type": "video",
+          "settings": {
+            "product": "شامبو-العناية-بفروة-الرأس",
+            "title": "بوكس العناية بفروة الشعر",
+            "link": "",
+            "fallback_poster": "shampoo",
+            "play_label": "تشغيل الفيديو",
+            "pause_label": "إيقاف الفيديو مؤقتًا"
+          }
+        }
+      },
+      "block_order": [
+        "video_wrzfLj",
+        "video_i9zjij",
+        "video_FcW8an",
+        "video_AGWFkr",
+        "video_aQfqmf",
+        "video_x3JwaP"
+      ],
+      "name": "CTA strip",
+      "settings": {
+        "heading": "جاهزة تبدين روتين شعرك؟",
+        "subheading": "خصم 30% على بوكس العناية بالفروة والشعر لفترة محدودة",
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "group_product_9RYttB": {
+          "type": "_group-product",
+          "settings": {
+            "colors_by_block": false,
+            "color_scheme": ""
+          },
+          "blocks": {
+            "product_title_ehRqkq": {
+              "type": "_product-title",
+              "settings": {
+                "txt_tr_pr": "none",
+                "tag": "h2",
+                "heading_size": "h_custom",
+                "font_size_heading_lg": 16,
+                "font_size_heading": 16,
+                "font_weight": "semibold",
+                "letter_spacing_heading": 0
+              },
+              "blocks": {}
+            },
+            "product_price_9JizTC": {
+              "type": "_product-price",
+              "settings": {
+                "label_onsale_style": "none"
+              },
+              "blocks": {}
+            },
+            "product_description_AJaqwJ": {
+              "type": "_product-description",
+              "settings": {
+                "des": "2",
+                "short_des": "<p>Go kalles this summer with this vintage navy and white striped v-neck t-shirt from the Nike. Perfect for pairing with denim and white kicks for a stylish kalles vibe.</p>",
+                "readm": false,
+                "length": 130,
+                "readm_txt": "Read more",
+                "readl_txt": "Read less",
+                "ffamily": "",
+                "text_size": "base",
+                "line_height": "",
+                "font_weight": "normal",
+                "heading_color": "",
+                "text_color": "hdt-text-secondary",
+                "font_size_text_lg": 16,
+                "font_size_text": 14,
+                "letter_spacing_text": 0
+              },
+              "blocks": {}
+            },
+            "product_variant_picker_WMmDTM": {
+              "type": "_product-variant-picker",
+              "settings": {
+                "color_picker_type": "color_rounded",
+                "color_size": "medium",
+                "picker_type": "circle",
+                "size_chart_source": "page",
+                "size_chart_page": "size-chart"
+              },
+              "blocks": {}
+            },
+            "quantity_selector_tarLcL": {
+              "type": "_quantity-selector",
+              "disabled": true,
+              "settings": {},
+              "blocks": {}
+            },
+            "product_buy_button_aPmAbD": {
+              "type": "_product-buy-button",
+              "settings": {
+                "show_quantity_selector": true,
+                "show_dynamic_checkout": false,
+                "show_gift_card_recipient": true,
+                "show_wishlist": true,
+                "color_wishlist": "#222222",
+                "color_hover_wishlist": "#56cfe1",
+                "color_active_wishlist": "#e81e1e",
+                "show_compare": true,
+                "color_compare": "#222222",
+                "color_hover_compare": "#56cfe1",
+                "color_active_compare": "#e81e1e",
+                "ani": "hdt-ani-shake is--infinite",
+                "time": 6,
+                "btn_transform": "hdt-uppercase",
+                "btn_style": "hdt-btn-accent",
+                "btn_fullwidth": false
+              },
+              "blocks": {}
+            },
+            "product_back_instock_qMdMA6": {
+              "type": "_product_back_instock",
+              "name": "Back in stock",
+              "settings": {
+                "only_show_soldout": true
+              },
+              "blocks": {}
+            },
+            "product_pickup_Jpchr6": {
+              "type": "_product-pickup",
+              "name": "t:sections.main-product.blocks.pickup_availability.name",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_trust_badge_QALnxQ": {
+              "type": "_product-trust-badge",
+              "settings": {
+                "mess": "",
+                "size": 16,
+                "source": "1",
+                "wimg": 370,
+                "svg": "amazon,american_express,apple_pay,bitcoin,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,google_pay,jcb,klarna,klarna-pay-later,litecoin,maestro,master,paypal,shopify_pay,sofort,visa",
+                "height": 30
+              },
+              "blocks": {}
+            },
+            "product_extra_link_HfDmDV": {
+              "type": "_product-extra-link",
+              "settings": {},
+              "blocks": {
+                "product_size_chart_6Y9gBm": {
+                  "type": "_product-size-chart",
+                  "settings": {
+                    "size_chart": "3",
+                    "size_chart_source": "page",
+                    "size_chart_page": "size-chart"
+                  },
+                  "blocks": {}
+                },
+                "product_delivery_return_CqMf76": {
+                  "type": "_product-delivery-return",
+                  "settings": {
+                    "page_delivery": "delivery-return"
+                  },
+                  "blocks": {}
+                },
+                "product_ask_question_nWC4pL": {
+                  "type": "_product-ask-question",
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_size_chart_6Y9gBm",
+                "product_delivery_return_CqMf76",
+                "product_ask_question_nWC4pL"
+              ]
+            },
+            "product_meta_hnDEjn": {
+              "type": "_product-meta",
+              "settings": {},
+              "blocks": {
+                "product_meta_available_hVC3VU": {
+                  "type": "_product-meta-available",
+                  "name": "t:sections.main-product.blocks.meta.settings.show_available.label",
+                  "settings": {},
+                  "blocks": {}
+                },
+                "product_meta_sku_kXHJPJ": {
+                  "type": "_product-meta-sku",
+                  "settings": {},
+                  "blocks": {}
+                },
+                "product_meta_category_4Gq4HK": {
+                  "type": "_product-meta-category",
+                  "settings": {},
+                  "blocks": {}
+                },
+                "product_meta_tags_bePDzg": {
+                  "type": "_product-meta-tags",
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_meta_available_hVC3VU",
+                "product_meta_sku_kXHJPJ",
+                "product_meta_category_4Gq4HK",
+                "product_meta_tags_bePDzg"
+              ]
+            },
+            "socials_XYJPwj": {
+              "type": "socials",
+              "settings": {
+                "text_color": "hdt-s-text",
+                "type": "share",
+                "share_facebook": true,
+                "share_x": true,
+                "share_pinterest": true,
+                "share_tumblr": true,
+                "share_telegram": true,
+                "share_email": true,
+                "share_whatsapp": true,
+                "socials_style": "simple",
+                "socials_size": "medium",
+                "bd_radius": 30,
+                "space_item": 30
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_title_ehRqkq",
+            "product_price_9JizTC",
+            "product_description_AJaqwJ",
+            "product_variant_picker_WMmDTM",
+            "quantity_selector_tarLcL",
+            "product_buy_button_aPmAbD",
+            "product_back_instock_qMdMA6",
+            "product_pickup_Jpchr6",
+            "product_trust_badge_QALnxQ",
+            "product_extra_link_HfDmDV",
+            "product_meta_hnDEjn",
+            "socials_XYJPwj"
+          ]
+        },
+        "main-product-sidebar": {
+          "type": "_product_sidebar",
+          "static": true,
+          "settings": {
+            "color_scheme": "",
+            "space": 50,
+            "last_order": false
+          },
+          "blocks": {}
+        },
+        "main-product-medias": {
+          "type": "_product-medias",
+          "static": true,
+          "settings": {
+            "media_box_size": 50,
+            "desktop_media_layout": "thumbnail_left",
+            "media_size": "medium",
+            "mobile_media_layout": "thumbnails",
+            "show_first_media": false,
+            "use_select_varaint_change_media": true,
+            "enable_media_autoplay": false,
+            "enable_video_looping": false,
+            "enable_thumb_efect": true,
+            "image_ratio": "adapt_image",
+            "image_size": true,
+            "image_zoom": "zoom_lightbox",
+            "enable_lightbox_icon": false,
+            "image_zoom_type": "external",
+            "zoom_level": 2,
+            "max_zoom_lightbox": 3,
+            "navUI": true,
+            "nav_style": "outline",
+            "nav_shape": "rounded",
+            "nav_size": "small",
+            "nav_hide_mobile": true
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_product_9RYttB"
+      ],
+      "disabled": true,
+      "settings": {
+        "product_list_fbt": [],
+        "sticky_atc": true,
+        "hdt_layout_atc_mob": "hdt_layout_atc_mob_default",
+        "hdt_show_sticky_atc": "hdt_show_always",
+        "ani": "hdt-ani-shake is--infinite",
+        "time": 6,
+        "btn_transform": "hdt-uppercase",
+        "btn_style": "hdt-btn-accent",
+        "colors_by_section": false,
+        "color_scheme": "",
+        "background_opacity": 1,
+        "fullwidth": false,
+        "mg": "",
+        "mg_mb": "",
+        "pd": "30px,,60px,",
+        "pd_mb": "22px,,45px,"
+      }
+    },
+    "tabs": {
+      "type": "main-product-tabs",
+      "blocks": {
+        "tab_des_tKqkJj": {
+          "type": "tab_des",
+          "settings": {
+            "title": "Description"
+          }
+        },
+        "tab_add_HXf3yk": {
+          "type": "tab_add",
+          "settings": {
+            "title": "Additional Information"
+          }
+        },
+        "tab_html_7dKb7L": {
+          "type": "tab_html",
+          "settings": {
+            "title": "Custom tab",
+            "content": "",
+            "page": "wash-care"
+          }
+        }
+      },
+      "block_order": [
+        "tab_des_tKqkJj",
+        "tab_add_HXf3yk",
+        "tab_html_7dKb7L"
+      ],
+      "disabled": true,
+      "settings": {
+        "tabs_design": "tab",
+        "enable_first_tab": false,
+        "full_width": false,
+        "colors_by_section": true,
+        "color_scheme": "scheme-c9476b69-abc7-454f-a946-2d5a9f5f3a37",
+        "background_opacity": 1,
+        "mg": "",
+        "mg_mb": "",
+        "pd": "60px,,60px,",
+        "pd_mb": "30px,,30px,"
+      }
+    },
+    "sidebar": {
+      "type": "sidebar-product",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "space": 50
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "true_care_product_hero_pUcRVf",
+    "true_care_before_after_fq4aBR",
+    "true_care_usage_steps_KxnE3b",
+    "true_care_ingredients_Rat3MK",
+    "true_care_reviews_ENapBj",
+    "true_care_faq_8xbykn",
+    "true_care_routine_products_Fx9WPn",
+    "cta_strip_LiEFhk",
+    "main-product",
+    "tabs",
+    "sidebar"
+  ]
+}

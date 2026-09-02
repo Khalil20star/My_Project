@@ -1,0 +1,151 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "announcement": {
+      "type": "true-care-announcement",
+      "settings": {}
+    },
+    "header": {
+      "type": "true-care-header",
+      "blocks": {
+        "home": { "type": "menu_link", "settings": { "label": "الرئيسية" } },
+        "products": { "type": "menu_link", "settings": { "label": "كل المنتجات" } },
+        "about": { "type": "menu_link", "settings": { "label": "من نحن" } },
+        "contact": { "type": "menu_link", "settings": { "label": "اتصل بنا" } }
+      },
+      "block_order": ["home", "products", "about", "contact"],
+      "settings": { "menu": "main-menu", "background_color": "#fdf5ee" }
+    },
+    "hero": {
+      "type": "true-care-product-hero",
+      "blocks": {
+        "point1": { "type": "point", "settings": { "text": "تنظيف عميق بدون جفاف أو تهيج" } },
+        "point2": { "type": "point", "settings": { "text": "مدعوم بمغذيات فعّالة لفروة الرأس والشعر" } },
+        "point3": { "type": "point", "settings": { "text": "خالٍ من البارابين والسيليكون — لطيف على الفروة الحساسة" } },
+        "pair1": { "type": "paired_product", "settings": { "heading": "مرطب للشعر بزبدة الشيا", "fallback_image": "moisturizer" } },
+        "pair2": { "type": "paired_product", "settings": { "heading": "سنفرة تنظيف فروة الرأس", "fallback_image": "scrub" } }
+      },
+      "block_order": ["point1", "point2", "point3", "pair1", "pair2"],
+      "settings": {}
+    },
+    "before_after": {
+      "type": "true-care-before-after",
+      "blocks": {
+        "after1": { "type": "after_point", "settings": { "text": "شعر أنظف وأكثر حيوية" } },
+        "after2": { "type": "after_point", "settings": { "text": "فروة راس منتعشة وأنظف" } },
+        "after3": { "type": "after_point", "settings": { "text": "نعومة ولمعة واضحة من أول استخدام" } },
+        "after4": { "type": "after_point", "settings": { "text": "تراكمات أقل وشعر أكثر حيوية" } },
+        "before1": { "type": "before_point", "settings": { "text": "شعر باهت وثقيل" } },
+        "before2": { "type": "before_point", "settings": { "text": "تشابك وصعوبة بالتمشيط" } },
+        "before3": { "type": "before_point", "settings": { "text": "فروة تحتاج تنظيف وتوازن" } },
+        "before4": { "type": "before_point", "settings": { "text": "تراكمات زيوت وبقايا منتجات" } }
+      },
+      "block_order": ["after1", "after2", "after3", "after4", "before1", "before2", "before3", "before4"],
+      "settings": {}
+    },
+    "usage": {
+      "type": "true-care-usage-steps",
+      "blocks": {
+        "step1": { "type": "step", "settings": { "heading": "بللي الشعر", "text": "بالماء جيداً قبل الشامبو" } },
+        "step2": { "type": "step", "settings": { "heading": "ضعي الشامبو", "text": "كمية مناسبة على الفروة" } },
+        "step3": { "type": "step", "settings": { "heading": "دلكي برفق", "text": "حتى يتكوّن رغوة جيداً" } },
+        "step4": { "type": "step", "settings": { "heading": "اشطفي جيداً", "text": "بالماء حتى النظافة التامة" } },
+        "step5": { "type": "step", "settings": { "heading": "كرري 2–3 مرات", "text": "أسبوعياً أو حسب الحاجة" } }
+      },
+      "block_order": ["step1", "step2", "step3", "step4", "step5"],
+      "settings": {}
+    },
+    "ingredients": {
+      "type": "true-care-ingredients",
+      "blocks": {
+        "ingredient1": { "type": "ingredient", "settings": { "symbol": "★", "heading": "البانثينول (Pro-B5)", "text": "يرطب الشعر بعمق ويعزز نعومته ومرونته من أول استخدام", "note": "مرطب عميق · يعزز النعومة" } },
+        "ingredient2": { "type": "ingredient", "settings": { "symbol": "⚘", "heading": "الألوفيرا", "text": "يهدئ فروة الرأس المتهيجة أو الحساسة ويمنحها ترطيباً فورياً", "note": "مهدئ · مرطب · لطيف" } },
+        "ingredient3": { "type": "ingredient", "settings": { "symbol": "◔", "heading": "زيت شجرة الشاي", "text": "ينقي فروة الرأس ويقلل البكتيريا ويساعد على تخفيف القشرة", "note": "مطهر طبيعي · مضاد للقشرة" } },
+        "ingredient4": { "type": "ingredient", "settings": { "symbol": "♢", "heading": "تركيبة خالية من الضار", "text": "بدون بارابين أو سيليكون — آمنة للاستخدام اليومي وعلى الشعر المصبوغ", "note": "خالية من البارابين والسيليكون" } },
+        "ingredient5": { "type": "ingredient", "settings": { "symbol": "⚘", "heading": "مستخلص برعم البازلاء", "text": "يحفز الدورة الدموية ويدعم حيوية الجذور ونمو الشعر", "note": "محفز للنمو · يدعم الجذور" } },
+        "ingredient6": { "type": "ingredient", "settings": { "symbol": "♨", "heading": "الكافيين والبيوتين", "text": "يقويان بصيلات الشعر لتقليل التساقط ودعم صحة فروة الرأس", "note": "يقوي البصيلات · يقلل التساقط" } }
+      },
+      "block_order": ["ingredient1", "ingredient2", "ingredient3", "ingredient4", "ingredient5", "ingredient6"],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "true-care-reviews",
+      "blocks": {
+        "review1": { "type": "review", "settings": { "author": "جنان الملا", "rating": 5, "verified_label": "موثق", "title": "أحب شكل الزجاجة", "text": "أحببت شكل الزجاجة والرائحة، أحلى عطر جربته في حياتي.", "date": "03/20/2026" } },
+        "review2": { "type": "review", "settings": { "author": "فهد القحطاني", "rating": 5, "verified_label": "موثق", "title": "يستحق كل فلس.", "text": "كنت متردد لما شريته، لكن بعد ما جربته حسيت أنه يستحق كل فلس.", "date": "03/20/2026" } },
+        "review3": { "type": "review", "settings": { "author": "راشد السعيد", "rating": 5, "verified_label": "موثق", "title": "ريحتها مميزة وفخمة", "text": "ريحتها مميزة وفخمة، كل اللي يجربها يقول لي عنها، وأكيد أحبها.", "date": "03/20/2026" } }
+      },
+      "block_order": ["review1", "review2", "review3"],
+      "settings": {}
+    },
+    "faq": {
+      "type": "true-care-faq",
+      "blocks": {
+        "faq1": { "type": "faq", "settings": { "question": "هل الشامبو مناسب للاستخدام اليومي؟", "answer": "<p>يمكن استخدامه حسب حاجة فروة الرأس، ويُفضّل اعتماد روتين مناسب لطبيعة الشعر.</p>" } },
+        "faq2": { "type": "faq", "settings": { "question": "هل هو مناسب لفروة الرأس الحساسة؟", "answer": "<p>تركيبته لطيفة وخالية من البارابين والسيليكون، ويُفضّل اختبار كمية صغيرة أولاً.</p>" } },
+        "faq3": { "type": "faq", "settings": { "question": "متى تبدأ ظهور النتائج؟", "answer": "<p>يمكن ملاحظة النظافة والانتعاش من أول استخدام، وتختلف النتائج حسب طبيعة الشعر.</p>" } },
+        "faq4": { "type": "faq", "settings": { "question": "هل يصلح للشعر المصبوغ؟", "answer": "<p>نعم، صُممت التركيبة لتكون لطيفة على الشعر المصبوغ.</p>" } },
+        "faq5": { "type": "faq", "settings": { "question": "هل يساعد على تقليل التساقط؟", "answer": "<p>تدعم مكوناته صحة البصيلات ضمن روتين العناية ولا يُقدّم كعلاج طبي.</p>" } },
+        "faq6": { "type": "faq", "settings": { "question": "هل يُشحن لخارج الكويت؟", "answer": "<p>يعتمد ذلك على مناطق وخيارات الشحن المفعّلة في المتجر عند إتمام الطلب.</p>" } }
+      },
+      "block_order": ["faq1", "faq2", "faq3", "faq4", "faq5", "faq6"],
+      "settings": {}
+    },
+    "routine": {
+      "type": "true-care-routine-products",
+      "settings": {}
+    },
+    "similar": {
+      "type": "true-care-similar-products",
+      "blocks": {
+        "similar1": { "type": "product", "settings": { "fallback_image": "brush", "heading": "فرشاة فك تشابك الشعر" } },
+        "similar2": { "type": "product", "settings": { "fallback_image": "moisturizer", "heading": "مرطب للشعر بزبدة الشيا" } },
+        "similar3": { "type": "product", "settings": { "fallback_image": "scrub", "heading": "سنفرة تنظيف فروة الرأس" } },
+        "similar4": { "type": "product", "settings": { "fallback_image": "box", "heading": "بوكس العناية بفروة الشعر" } }
+      },
+      "block_order": ["similar1", "similar2", "similar3", "similar4"],
+      "settings": { "heading": "منتجات مشابهة" }
+    },
+    "videos": {
+      "type": "cta-strip",
+      "blocks": {
+        "video1": { "type": "video", "settings": { "fallback_poster": "care_box", "title": "بوكس العناية بفروة الشعر" } },
+        "video2": { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "شامبو العناية بفروة الرأس" } },
+        "video3": { "type": "video", "settings": { "fallback_poster": "fragrance", "title": "عطر الشعر و الجسم" } },
+        "video4": { "type": "video", "settings": { "fallback_poster": "unboxing", "title": "سنفرة تنظيف فروة الرأس" } },
+        "video5": { "type": "video", "settings": { "fallback_poster": "care_box", "title": "شامبو العناية بفروة الرأس" } },
+        "video6": { "type": "video", "settings": { "fallback_poster": "shampoo", "title": "بوكس العناية بفروة الشعر" } }
+      },
+      "block_order": ["video1", "video2", "video3", "video4", "video5", "video6"],
+      "settings": {}
+    },
+    "footer": {
+      "type": "true-care-footer",
+      "blocks": {
+        "link1": { "type": "link", "settings": { "column": "important", "label": "سياسة المتجر" } },
+        "link2": { "type": "link", "settings": { "column": "important", "label": "معلومات عنا" } },
+        "link3": { "type": "link", "settings": { "column": "important", "label": "تواصل معنا" } },
+        "link4": { "type": "link", "settings": { "column": "important", "label": "سياسة الشحن" } },
+        "link5": { "type": "link", "settings": { "column": "shop", "label": "العناية بالشعر" } },
+        "link6": { "type": "link", "settings": { "column": "shop", "label": "العناية بالبشرة" } },
+        "link7": { "type": "link", "settings": { "column": "shop", "label": "عطور" } },
+        "link8": { "type": "link", "settings": { "column": "shop", "label": "جميع المنتجات" } },
+        "social1": { "type": "social", "settings": { "label": "Instagram", "icon_name": "instagram" } },
+        "social2": { "type": "social", "settings": { "label": "TikTok", "icon_name": "tiktok" } },
+        "social3": { "type": "social", "settings": { "label": "Facebook", "icon_name": "facebook" } },
+        "social4": { "type": "social", "settings": { "label": "YouTube", "icon_name": "youtube" } }
+      },
+      "block_order": ["link1", "link2", "link3", "link4", "link5", "link6", "link7", "link8", "social1", "social2", "social3", "social4"],
+      "settings": {}
+    }
+  },
+  "order": ["announcement", "header", "hero", "before_after", "usage", "ingredients", "reviews", "faq", "routine", "similar", "videos", "footer"]
+}

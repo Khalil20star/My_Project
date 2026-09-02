@@ -1,0 +1,32 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+<aside
+  id="TrueCareAnnouncement-{{ section.id }}"
+  class="tc-section tc-announcement"
+  dir="rtl"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+  style="--tc-accent: {{ section.settings.accent_color }}; background: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};"
+>
+  <p>
+    <span>{{ section.settings.text }}</span>
+    {%- if section.settings.offer_text != blank -%}
+      <span class="tc-announcement__separator" aria-hidden="true">·</span>
+      <strong>{{ section.settings.offer_text }}</strong>
+    {%- endif -%}
+  </p>
+</aside>
+
+{% schema %}
+{
+  "name": "True Care announcement",
+  "settings": [
+    { "type": "text", "id": "accessibility_label", "label": "Accessibility label", "default": "إعلان المتجر" },
+    { "type": "text", "id": "text", "label": "Text", "default": "لأن الجمال يبدأ بالعناية، اخترنا لكِ تركيبات آمنة ونقية" },
+    { "type": "text", "id": "offer_text", "label": "Offer text", "default": "خصم 30%" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#0e0e0e" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#fdf5ee" },
+    { "type": "color", "id": "accent_color", "label": "Offer color", "default": "#fbbd99" }
+  ],
+  "presets": [{ "name": "True Care announcement" }]
+}
+{% endschema %}

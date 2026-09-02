@@ -1,0 +1,146 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:sections.name_group.footer",
+  "sections": {
+    "true_care_footer_BtVXn3": {
+      "type": "true-care-footer",
+      "blocks": {
+        "link_PpQ7Nt": {
+          "type": "link",
+          "settings": {
+            "column": "important",
+            "label": "سياسة المتجر",
+            "url": ""
+          }
+        },
+        "link_N7E9xT": {
+          "type": "link",
+          "settings": {
+            "column": "important",
+            "label": "معلومات عنا",
+            "url": ""
+          }
+        },
+        "link_ArWTbM": {
+          "type": "link",
+          "settings": {
+            "column": "important",
+            "label": "تواصل معنا",
+            "url": ""
+          }
+        },
+        "link_b8ATkF": {
+          "type": "link",
+          "settings": {
+            "column": "important",
+            "label": "سياسة الشحن",
+            "url": ""
+          }
+        },
+        "link_mDPT33": {
+          "type": "link",
+          "settings": {
+            "column": "shop",
+            "label": "العناية بالشعر",
+            "url": "shopify://collections/العناية-بالشعر"
+          }
+        },
+        "link_jrUyJX": {
+          "type": "link",
+          "settings": {
+            "column": "shop",
+            "label": "العناية بالبشرة",
+            "url": "shopify://collections/العناية-بالبشرة"
+          }
+        },
+        "link_7ezijw": {
+          "type": "link",
+          "settings": {
+            "column": "shop",
+            "label": "عطور",
+            "url": "shopify://collections/عطور"
+          }
+        },
+        "link_6FKRkm": {
+          "type": "link",
+          "settings": {
+            "column": "shop",
+            "label": "جميع المنتجات",
+            "url": "shopify://collections/all"
+          }
+        },
+        "social_AzjNWn": {
+          "type": "social",
+          "settings": {
+            "label": "Instagram",
+            "icon_name": "instagram",
+            "url": "https://www.instagram.com/truecare.cos"
+          }
+        },
+        "social_DPfkyd": {
+          "type": "social",
+          "settings": {
+            "label": "TikTok",
+            "icon_name": "tiktok",
+            "url": "https://www.tiktok.com/@truecare.cos"
+          }
+        },
+        "social_wLmXKK": {
+          "type": "social",
+          "settings": {
+            "label": "Facebook",
+            "icon_name": "facebook",
+            "url": ""
+          }
+        },
+        "social_DXWtkn": {
+          "type": "social",
+          "settings": {
+            "label": "YouTube",
+            "icon_name": "youtube",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "link_PpQ7Nt",
+        "link_N7E9xT",
+        "link_ArWTbM",
+        "link_b8ATkF",
+        "link_mDPT33",
+        "link_jrUyJX",
+        "link_7ezijw",
+        "link_6FKRkm",
+        "social_AzjNWn",
+        "social_DPfkyd",
+        "social_wLmXKK",
+        "social_DXWtkn"
+      ],
+      "name": "True Care footer",
+      "settings": {
+        "logo": "shopify://shop_images/Container.png",
+        "description": "منتجات عناية أنيقة ذات جودة ممتازة تناسب كل فرد من أفراد الأسرة، وبأسعار جد معقولة.",
+        "phone": "+000 0000 0000",
+        "email": "truecare.cos@gmail.com",
+        "important_heading": "الروابط مهمة",
+        "shop_heading": "تسوقي",
+        "social_heading": "التواصل الاجتماعي",
+        "copyright": "© 2026 True Care. جميع الحقوق محفوظة",
+        "made_with": "صنع بعناية لعشاق الجمال الطبيعي",
+        "background_color": "#fde2cb"
+      }
+    }
+  },
+  "order": [
+    "true_care_footer_BtVXn3"
+  ]
+}

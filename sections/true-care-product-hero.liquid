@@ -1,0 +1,201 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_product = section.settings.product | default: product
+  assign selected_variant = hero_product.selected_or_first_available_variant
+  assign form_id = 'TrueCareHeroForm-' | append: section.id
+  assign hero_alt = section.settings.heading | default: hero_product.title | default: 'شامبو التنقية لفروة الرأس'
+-%}
+
+<section
+  id="TrueCareHero-{{ section.id }}"
+  class="tc-section tc-hero"
+  dir="rtl"
+  data-tc-hero
+  style="--tc-accent: {{ section.settings.accent_color }}; --tc-accent-strong: {{ section.settings.sale_color }}; --tc-cream: {{ section.settings.soft_background }};"
+>
+  <div class="tc-container tc-hero__grid">
+    <div class="tc-hero__gallery" data-tc-gallery>
+      <div class="tc-hero__main">
+        {%- if hero_product.featured_image != blank -%}
+          {{ hero_product.featured_image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '375, 550, 750, 900, 1100, 1400', sizes: '(min-width: 768px) 52vw, 100vw', class: 'tc-hero__main-image', alt: hero_product.featured_image.alt }}
+        {%- elsif section.settings.fallback_image != blank -%}
+          {{ section.settings.fallback_image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '375, 750, 1100, 1400', sizes: '(min-width: 768px) 52vw, 100vw', class: 'tc-hero__main-image', alt: hero_alt }}
+        {%- else -%}
+          <img class="tc-hero__main-image" src="{{ 'true-care-hero.jpg' | asset_url }}" width="1350" height="1214" loading="eager" fetchpriority="high" alt="{{ hero_alt | escape }}">
+        {%- endif -%}
+      </div>
+
+      <div class="tc-hero__thumbs" role="list" aria-label="{{ section.settings.gallery_label | escape }}">
+        {%- if hero_product.images.size > 0 -%}
+          {%- for image in hero_product.images limit: 5 -%}
+            <button type="button" class="tc-hero__thumb" role="listitem" data-tc-gallery-thumbnail data-image-url="{{ image | image_url: width: 1400 }}" data-image-alt="{{ image.alt | default: hero_product.title | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ section.settings.thumbnail_label }} {{ forloop.index }}">
+              {{ image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 120, 180', sizes: '76px', alt: image.alt }}
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for index in (1..5) -%}
+            <button type="button" class="tc-hero__thumb" role="listitem" data-tc-gallery-thumbnail data-image-url="{{ 'true-care-hero.jpg' | asset_url }}" data-image-alt="{{ hero_alt | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ section.settings.thumbnail_label }} {{ index }}">
+              <img src="{{ 'true-care-hero.jpg' | asset_url }}" width="180" height="162" loading="lazy" alt="">
+            </button>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="tc-hero__info">
+      <div class="tc-hero__rating"><span class="tc-stars" aria-hidden="true">★★★★★</span><span>{{ section.settings.rating_label }}</span></div>
+      <h1>{{ section.settings.heading | default: hero_product.title | escape }}</h1>
+      <p class="tc-hero__size">{{ section.settings.size_label }}</p>
+      <div class="tc-hero__description hdt-rte">{{ section.settings.description }}</div>
+
+      <ul class="tc-hero__points" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'point' and block.settings.text != blank -%}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="tc-hero__price" aria-live="polite">
+        {%- if selected_variant != blank -%}
+          {%- liquid
+            assign current_price_display = selected_variant.price | money | replace: '.000', '.00' | replace: ',000', ',00'
+          -%}
+          <span class="tc-hero__price-current">{{ current_price_display }}</span>
+          {%- if selected_variant.compare_at_price > selected_variant.price -%}
+            {%- liquid
+              assign compare_price_display = selected_variant.compare_at_price | money | replace: '.000', '.00' | replace: ',000', ',00'
+              assign saving = selected_variant.compare_at_price | minus: selected_variant.price
+              assign saving_display = saving | money | replace: '.000', '' | replace: ',000', ''
+            -%}
+            <s class="tc-hero__price-compare">{{ compare_price_display }}</s>
+            <span class="tc-hero__discount">{{ section.settings.saving_label }} {{ saving_display }}</span>
+          {%- endif -%}
+        {%- else -%}
+          <span class="tc-hero__price-current">14.00 KD</span><s class="tc-hero__price-compare">19.00 KD</s><span class="tc-hero__discount">{{ section.settings.saving_label }} 5 KD</span>
+        {%- endif -%}
+      </div>
+
+      {%- if hero_product != blank -%}
+        {%- form 'product', hero_product, id: form_id -%}
+          {%- unless hero_product.has_only_default_variant -%}
+            <label class="visually-hidden" for="TrueCareHeroVariant-{{ section.id }}">{{ section.settings.variant_label }}</label>
+            <select id="TrueCareHeroVariant-{{ section.id }}" name="id">
+              {%- for variant in hero_product.variants -%}<option value="{{ variant.id }}"{% if variant == selected_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>{%- endfor -%}
+            </select>
+          {%- else -%}
+            <input type="hidden" name="id" value="{{ selected_variant.id }}">
+          {%- endunless -%}
+          <div class="tc-hero__buy">
+            <div class="tc-hero__quantity" data-tc-quantity>
+              <button type="button" data-action="decrease" aria-label="{{ section.settings.decrease_label | escape }}">−</button>
+              <input type="number" name="quantity" value="1" min="1" inputmode="numeric" aria-label="{{ section.settings.quantity_label | escape }}">
+              <button type="button" data-action="increase" aria-label="{{ section.settings.increase_label | escape }}">+</button>
+            </div>
+            <button class="tc-hero__add" type="submit" name="add"{% unless selected_variant.available %} disabled{% endunless %}>{{ section.settings.add_to_cart_label }}</button>
+          </div>
+        {%- endform -%}
+      {%- else -%}
+        <div class="tc-hero__buy"><div class="tc-hero__quantity" data-tc-quantity><button type="button" data-action="decrease" aria-label="{{ section.settings.decrease_label | escape }}">−</button><input type="number" value="1" min="1" aria-label="{{ section.settings.quantity_label | escape }}"><button type="button" data-action="increase" aria-label="{{ section.settings.increase_label | escape }}">+</button></div><button class="tc-hero__add" type="button" disabled>{{ section.settings.add_to_cart_label }}</button></div>
+      {%- endif -%}
+
+      <div class="tc-hero__pairs">
+        <p class="tc-hero__pairs-title">{{ section.settings.pairs_heading }}</p>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'paired_product' -%}
+            {%- assign pair_product = block.settings.product -%}
+            {%- assign fallback_asset = 'true-care-pair-moisturizer.jpg' -%}
+            {%- if block.settings.fallback_image == 'scrub' -%}{%- assign fallback_asset = 'true-care-pair-scrub.jpg' -%}{%- endif -%}
+            <article class="tc-hero__pair" {{ block.shopify_attributes }}>
+              {%- if pair_product.featured_image != blank -%}
+                {{ pair_product.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 140, 180', sizes: '52px', alt: pair_product.featured_image.alt }}
+              {%- else -%}
+                <img src="{{ fallback_asset | asset_url }}" width="416" height="416" loading="lazy" alt="{{ block.settings.heading | escape }}">
+              {%- endif -%}
+              <div><h3>{{ block.settings.heading | default: pair_product.title }}</h3><span class="tc-hero__pair-price">{% if pair_product != blank %}{{ pair_product.price | money }}{% else %}14.00 KD{% endif %}</span><s class="tc-hero__pair-compare">{% if pair_product.compare_at_price > pair_product.price %}{{ pair_product.compare_at_price | money }}{% else %}19.00 KD{% endif %}</s></div>
+              {%- if pair_product.available -%}
+                {%- form 'product', pair_product -%}<input type="hidden" name="id" value="{{ pair_product.selected_or_first_available_variant.id }}"><input type="hidden" name="quantity" value="1"><button type="submit">{{ block.settings.button_label }}</button>{%- endform -%}
+              {%- else -%}<button type="button" disabled>{{ block.settings.button_label }}</button>{%- endif -%}
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('TrueCareHero-{{ section.id }}');
+    if (!root || root.dataset.ready === 'true') return;
+    root.dataset.ready = 'true';
+    const main = root.querySelector('.tc-hero__main-image');
+    root.querySelectorAll('[data-tc-gallery-thumbnail]').forEach((button) => button.addEventListener('click', () => {
+      if (!main) return;
+      main.src = button.dataset.imageUrl;
+      main.alt = button.dataset.imageAlt || '';
+      main.removeAttribute('srcset');
+      root.querySelectorAll('[data-tc-gallery-thumbnail]').forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+    }));
+    root.querySelectorAll('[data-tc-quantity]').forEach((selector) => {
+      const input = selector.querySelector('input[type="number"]');
+      selector.querySelectorAll('button[data-action]').forEach((button) => button.addEventListener('click', () => {
+        const value = Number.parseInt(input.value, 10) || 1;
+        input.value = button.dataset.action === 'increase' ? value + 1 : Math.max(1, value - 1);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }));
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "True Care product hero",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback hero image" },
+    { "type": "text", "id": "gallery_label", "label": "Gallery label", "default": "صور المنتج" },
+    { "type": "text", "id": "thumbnail_label", "label": "Thumbnail label", "default": "عرض الصورة" },
+    { "type": "text", "id": "rating_label", "label": "Rating label", "default": "4.8 من 5 (127 تقييم)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "شامبو التنقية لفروة الرأس" },
+    { "type": "text", "id": "size_label", "label": "Size", "default": "500 مل" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>تركيبة متوازنة تنظف فروة الرأس من التراكمات والزيوت الزائدة والقشرة بعمق — دون تجفيف الرطوبة الطبيعية.</p>" },
+    { "type": "text", "id": "saving_label", "label": "Saving label", "default": "وفّري" },
+    { "type": "text", "id": "variant_label", "label": "Variant label", "default": "اختاري النوع" },
+    { "type": "text", "id": "quantity_label", "label": "Quantity label", "default": "الكمية" },
+    { "type": "text", "id": "increase_label", "label": "Increase label", "default": "زيادة الكمية" },
+    { "type": "text", "id": "decrease_label", "label": "Decrease label", "default": "تقليل الكمية" },
+    { "type": "text", "id": "add_to_cart_label", "label": "Add to cart", "default": "أضف إلى السلة" },
+    { "type": "text", "id": "pairs_heading", "label": "Paired products heading", "default": "عادةً يتم شراؤه مع :" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff997f" },
+    { "type": "color", "id": "sale_color", "label": "Sale color", "default": "#f44336" },
+    { "type": "color", "id": "soft_background", "label": "Soft background", "default": "#fff7f1" }
+  ],
+  "blocks": [
+    { "type": "point", "name": "Product point", "limit": 5, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "تنظيف عميق بدون جفاف أو تهيج" }] },
+    {
+      "type": "paired_product",
+      "name": "Paired product",
+      "limit": 2,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "heading", "label": "Fallback heading", "default": "مرطب للشعر بزبدة الشيا" },
+        { "type": "select", "id": "fallback_image", "label": "Fallback image", "options": [{ "value": "moisturizer", "label": "Moisturizer" }, { "value": "scrub", "label": "Scalp scrub" }], "default": "moisturizer" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "أضف" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care product hero",
+      "blocks": [
+        { "type": "point", "settings": { "text": "تنظيف عميق بدون جفاف أو تهيج" } },
+        { "type": "point", "settings": { "text": "مدعوم بمغذيات فعّالة لفروة الرأس والشعر" } },
+        { "type": "point", "settings": { "text": "خالٍ من البارابين والسيليكون — لطيف على الفروة الحساسة" } },
+        { "type": "paired_product", "settings": { "heading": "مرطب للشعر بزبدة الشيا", "fallback_image": "moisturizer" } },
+        { "type": "paired_product", "settings": { "heading": "سنفرة تنظيف فروة الرأس", "fallback_image": "scrub" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

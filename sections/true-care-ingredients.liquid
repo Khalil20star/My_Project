@@ -1,0 +1,65 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+<section id="TrueCareIngredients-{{ section.id }}" class="tc-section tc-ingredients tc-section__body" dir="rtl" style="--tc-cream: {{ section.settings.background_color }}; --tc-accent: {{ section.settings.accent_color }}; --tc-padding-top: {{ section.settings.padding_top }}px; --tc-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="tc-container">
+    <header class="tc-heading">
+      <p class="tc-heading__kicker">{{ section.settings.kicker }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p class="tc-heading__sub">{{ section.settings.subheading }}</p>
+    </header>
+    <div class="tc-ingredients__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'ingredient' and block.settings.heading != blank -%}
+          <article class="tc-ingredient" {{ block.shopify_attributes }}>
+            <span class="tc-ingredient__icon" aria-hidden="true">
+              {%- if block.settings.icon != blank -%}{{ block.settings.icon | image_url: width: 64 | image_tag: loading: 'lazy', widths: '28, 56, 64', sizes: '28px', alt: '' }}{%- else -%}{{ block.settings.symbol }}{%- endif -%}
+            </span>
+            <div><h3>{{ block.settings.heading }}</h3><p>{{ block.settings.text }}</p>{%- if block.settings.note != blank -%}<small>{{ block.settings.note }}</small>{%- endif -%}</div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "True Care ingredients",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "المكونات الفعّالة" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "ما هي محتوياته؟" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "تركيبة نظيفة — خالية من البارابين والسيليكون" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#fff7f1" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff997f" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 24, "max": 100, "step": 4, "default": 52 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 24, "max": 100, "step": 4, "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon" },
+        { "type": "text", "id": "symbol", "label": "Fallback symbol", "default": "✦" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "البانثينول (Pro-B5)" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "يرطب الشعر بعمق ويعزز نعومته ومرونته من أول استخدام" },
+        { "type": "text", "id": "note", "label": "Benefit note", "default": "مرطب عميق · يعزز النعومة" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care ingredients",
+      "blocks": [
+        { "type": "ingredient", "settings": { "symbol": "★", "heading": "البانثينول (Pro-B5)", "text": "يرطب الشعر بعمق ويعزز نعومته ومرونته من أول استخدام", "note": "مرطب عميق · يعزز النعومة" } },
+        { "type": "ingredient", "settings": { "symbol": "⚘", "heading": "الألوفيرا", "text": "يهدئ فروة الرأس المتهيجة أو الحساسة ويمنحها ترطيباً فورياً", "note": "مهدئ · مرطب · لطيف" } },
+        { "type": "ingredient", "settings": { "symbol": "◔", "heading": "زيت شجرة الشاي", "text": "ينقي فروة الرأس ويقلل البكتيريا ويساعد على تخفيف القشرة", "note": "مطهر طبيعي · مضاد للقشرة" } },
+        { "type": "ingredient", "settings": { "symbol": "♢", "heading": "تركيبة خالية من الضار", "text": "بدون بارابين أو سيليكون — آمنة للاستخدام اليومي وعلى الشعر المصبوغ", "note": "خالية من البارابين والسيليكون" } },
+        { "type": "ingredient", "settings": { "symbol": "⚘", "heading": "مستخلص برعم البازلاء", "text": "يحفز الدورة الدموية ويدعم حيوية الجذور ونمو الشعر", "note": "محفز للنمو · يدعم الجذور" } },
+        { "type": "ingredient", "settings": { "symbol": "♨", "heading": "الكافيين والبيوتين", "text": "يقويان بصيلات الشعر لتقليل التساقط ودعم صحة فروة الرأس", "note": "يقوي البصيلات · يقلل التساقط" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

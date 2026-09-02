@@ -1,0 +1,391 @@
+<section class="ba-section">
+  <div class="ba-container">
+
+    {% if section.settings.top_label != blank %}
+      <div class="ba-label">
+        <span></span>
+        {{ section.settings.top_label }}
+        <span></span>
+      </div>
+    {% endif %}
+
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="ba-subtitle">{{ section.settings.subtitle }}</p>
+
+    <div class="ba-wrapper">
+
+      <div class="ba-card ba-after">
+        <h3>
+          {{ section.settings.after_title }}
+          <i></i>
+        </h3>
+
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'after_item' %}
+              <li>
+                <span>✓</span>
+                {{ block.settings.text }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+
+      <div class="ba-image">
+
+        <img 
+          src="{{ section.settings.after_image | image_url: width: 900 }}"
+          class="ba-img after"
+        >
+
+        <div class="ba-before">
+          <img 
+            src="{{ section.settings.before_image | image_url: width: 900 }}"
+          >
+        </div>
+
+        <div class="ba-line"></div>
+
+        <input 
+          type="range" 
+          min="0" 
+          max="100" 
+          value="50"
+          class="ba-range"
+        >
+
+        <div class="ba-handle">↔</div>
+
+      </div>
+
+
+      <div class="ba-card ba-before-card">
+        <h3>
+          {{ section.settings.before_title }}
+          <i></i>
+        </h3>
+
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'before_item' %}
+              <li>
+                <span>×</span>
+                {{ block.settings.text }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+
+.ba-section{
+background:#fbf5ef;
+padding:70px 20px;
+direction:rtl;
+}
+
+.ba-container{
+max-width:1300px;
+margin:auto;
+text-align:center;
+}
+
+.ba-label{
+color:#f3a58d;
+font-size:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.ba-label span{
+width:35px;
+height:1px;
+background:#f3a58d;
+}
+
+.ba-section h2{
+font-size:42px;
+margin:20px 0 10px;
+color:#111;
+font-weight:700;
+}
+
+.ba-subtitle{
+color:#999;
+font-size:18px;
+margin-bottom:45px;
+}
+
+
+.ba-wrapper{
+display:grid;
+grid-template-columns:1fr 330px 1fr;
+gap:35px;
+align-items:center;
+direction:ltr;
+}
+
+
+.ba-card{
+background:#fff;
+border-radius:25px;
+padding:35px;
+text-align:right;
+background-image:
+linear-gradient(135deg,rgba(245,180,150,.15) 1px,transparent 1px);
+box-shadow:0 5px 20px rgba(0,0,0,.03);
+direction:rtl;
+}
+
+.ba-card h3{
+font-size:22px;
+margin-bottom:25px;
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.ba-after h3 i{
+width:10px;
+height:10px;
+background:#27c76f;
+border-radius:50%;
+}
+
+.ba-before-card h3 i{
+width:10px;
+height:10px;
+background:#f29b85;
+border-radius:50%;
+}
+
+
+.ba-card ul{
+padding:0;
+list-style:none;
+}
+
+.ba-card li{
+margin:18px 0;
+font-size:16px;
+color:#666;
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.ba-after li span{
+color:#27c76f;
+font-size:22px;
+font-weight:bold;
+}
+
+.ba-before-card li span{
+color:#f29b85;
+font-size:22px;
+font-weight:bold;
+}
+
+
+.ba-image{
+position:relative;
+border-radius:30px;
+overflow:hidden;
+border:12px solid white;
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+height:390px;
+}
+
+.ba-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+
+.ba-before{
+position:absolute;
+top:0;
+left:0;
+width:50%;
+height:100%;
+overflow:hidden;
+}
+
+
+.ba-before img{
+width:330px;
+max-width:none;
+}
+
+
+.ba-line{
+position:absolute;
+top:0;
+bottom:0;
+left:50%;
+width:2px;
+background:white;
+z-index:3;
+}
+
+
+.ba-handle{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:38px;
+height:38px;
+border-radius:50%;
+background:white;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:5;
+font-size:20px;
+}
+
+
+.ba-range{
+position:absolute;
+inset:0;
+width:100%;
+opacity:0;
+cursor:pointer;
+z-index:10;
+}
+
+
+@media(max-width:900px){
+
+.ba-wrapper{
+grid-template-columns:1fr;
+}
+
+.ba-image{
+order:-1;
+height:400px;
+}
+
+.ba-section h2{
+font-size:30px;
+}
+
+}
+
+</style>
+
+
+<script>
+
+document.querySelectorAll('.ba-section').forEach(section=>{
+
+let range = section.querySelector('.ba-range');
+let before = section.querySelector('.ba-before');
+let line = section.querySelector('.ba-line');
+let handle = section.querySelector('.ba-handle');
+
+range.addEventListener('input',function(){
+
+let value=this.value;
+
+before.style.width=value+"%";
+line.style.left=value+"%";
+handle.style.left=value+"%";
+
+});
+
+});
+
+</script>
+
+
+{% schema %}
+{
+"name":"Before After Comparison",
+"settings":[
+{
+"type":"text",
+"id":"top_label",
+"label":"Top Label",
+"default":"قبل و بعد"
+},
+{
+"type":"text",
+"id":"heading",
+"label":"Heading",
+"default":"من أول استخدام بتلاحظين الفرق"
+},
+{
+"type":"text",
+"id":"subtitle",
+"label":"Subtitle",
+"default":"روتين يساعد على تنظيف الفروة وتقليل التراكمات ودعم كثافة الشعر"
+},
+{
+"type":"image_picker",
+"id":"before_image",
+"label":"Before Image"
+},
+{
+"type":"image_picker",
+"id":"after_image",
+"label":"After Image"
+},
+{
+"type":"text",
+"id":"before_title",
+"label":"Before Title",
+"default":"قبل الاستخدام"
+},
+{
+"type":"text",
+"id":"after_title",
+"label":"After Title",
+"default":"بعد الاستخدام"
+}
+],
+"blocks":[
+{
+"type":"before_item",
+"name":"Before Point",
+"settings":[
+{
+"type":"text",
+"id":"text",
+"label":"Text"
+}
+]
+},
+{
+"type":"after_item",
+"name":"After Point",
+"settings":[
+{
+"type":"text",
+"id":"text",
+"label":"Text"
+}
+]
+}
+],
+"presets":[
+{
+"name":"Before After Comparison"
+}
+]
+}
+{% endschema %}

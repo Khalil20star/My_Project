@@ -1,0 +1,89 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+<header id="TrueCareHeader-{{ section.id }}" class="tc-section tc-site-header" dir="rtl" style="--tc-cream: {{ section.settings.background_color }};">
+  <div class="tc-container tc-site-header__inner">
+    <a class="tc-site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 320 | image_tag: loading: 'eager', widths: '124, 248, 320', sizes: '124px', alt: shop.name }}
+      {%- else -%}
+        <img src="{{ 'true-care-logo.png' | asset_url }}" width="248" height="154" alt="{{ shop.name | default: 'True Care' | escape }}">
+      {%- endif -%}
+    </a>
+
+    <nav id="TrueCareNav-{{ section.id }}" class="tc-site-header__nav" aria-label="{{ section.settings.menu_label | escape }}">
+      {%- liquid
+        assign navigation_menu = section.settings.menu
+        if navigation_menu == blank
+          assign navigation_menu = linklists['main-menu']
+        endif
+      -%}
+      {%- if navigation_menu != blank -%}
+        {%- for link in navigation_menu.links -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu_link' -%}<a href="{{ block.settings.url | default: routes.root_url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
+
+    <a class="tc-site-header__cart" href="{{ routes.cart_url }}" aria-label="{{ section.settings.cart_label | escape }}">
+      <span class="tc-site-header__cart-icon" aria-hidden="true"><img src="{{ 'Vector cart.png' | asset_url }}" width="14" height="13" alt=""></span><span>{{ section.settings.cart_label }} ({{ cart.item_count }})</span>
+    </a>
+    <button class="tc-site-header__menu" type="button" aria-label="{{ section.settings.mobile_menu_label | escape }}" aria-expanded="false" aria-controls="TrueCareNav-{{ section.id }}" data-tc-menu-toggle><span class="tc-site-header__menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <a class="tc-site-header__mobile-cart" href="{{ routes.cart_url }}" aria-label="{{ section.settings.cart_label | escape }}"><span class="tc-site-header__cart-icon" aria-hidden="true"><img src="{{ 'Vector cart.png' | asset_url }}" width="14" height="13" alt=""></span><small>{{ cart.item_count }}</small></a>
+  </div>
+</header>
+
+<script>
+  (() => {
+    const header = document.getElementById('TrueCareHeader-{{ section.id }}');
+    if (!header || header.dataset.menuReady === 'true') return;
+    const toggle = header.querySelector('[data-tc-menu-toggle]');
+    if (!toggle) return;
+    header.dataset.menuReady = 'true';
+    toggle.addEventListener('click', () => {
+      const isOpen = header.dataset.menuOpen === 'true';
+      header.dataset.menuOpen = String(!isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "True Care header",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "link_list", "id": "menu", "label": "Shopify menu", "default": "main-menu" },
+    { "type": "text", "id": "menu_label", "label": "Menu accessibility label", "default": "التنقل الرئيسي" },
+    { "type": "text", "id": "mobile_menu_label", "label": "Mobile menu label", "default": "فتح القائمة" },
+    { "type": "text", "id": "cart_label", "label": "Cart label", "default": "السلة" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#fdf5ee" }
+  ],
+  "blocks": [
+    {
+      "type": "menu_link",
+      "name": "Menu link",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "الرئيسية" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care header",
+      "blocks": [
+        { "type": "menu_link", "settings": { "label": "الرئيسية" } },
+        { "type": "menu_link", "settings": { "label": "كل المنتجات" } },
+        { "type": "menu_link", "settings": { "label": "من نحن" } },
+        { "type": "menu_link", "settings": { "label": "اتصل بنا" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,181 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "true_care_header_PKbaKT": {
+      "type": "true-care-header",
+      "blocks": {
+        "menu_link_waWHaY": {
+          "type": "menu_link",
+          "settings": {
+            "label": "الرئيسية",
+            "url": ""
+          }
+        },
+        "menu_link_F8xx3d": {
+          "type": "menu_link",
+          "settings": {
+            "label": "كل المنتجات",
+            "url": ""
+          }
+        },
+        "menu_link_T3bEJc": {
+          "type": "menu_link",
+          "settings": {
+            "label": "من نحن",
+            "url": ""
+          }
+        },
+        "menu_link_knQ7Gt": {
+          "type": "menu_link",
+          "settings": {
+            "label": "اتصل بنا",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "menu_link_waWHaY",
+        "menu_link_F8xx3d",
+        "menu_link_T3bEJc",
+        "menu_link_knQ7Gt"
+      ],
+      "name": "True Care header",
+      "settings": {
+        "menu": "main-menu",
+        "menu_label": "التنقل الرئيسي",
+        "mobile_menu_label": "فتح القائمة",
+        "cart_label": "السلة",
+        "background_color": "#fdf5ee"
+      }
+    },
+    "main_heading": {
+      "type": "main-heading",
+      "blocks": {
+        "collection_title": {
+          "type": "_heading_liquid",
+          "settings": {
+            "text": "<h1>{{ collection.title }}</h1>",
+            "line_height": "",
+            "font_family": "hdt-font-1",
+            "text_size": "2xl",
+            "text_color": "hdt-s-text",
+            "italic": false,
+            "uppercase": false,
+            "font_size_text_lg": 16,
+            "font_size_text": 14,
+            "letter_spacing_text": 0
+          },
+          "blocks": {}
+        },
+        "breadcrumbs": {
+          "type": "_heading_brc",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "collection_title",
+        "breadcrumbs"
+      ],
+      "disabled": true,
+      "settings": {
+        "use_dynamic_source": true,
+        "color_scheme": "scheme-1",
+        "bg_overlay": 0,
+        "space_item": 8,
+        "mg": "",
+        "mg_mb": "",
+        "pd": "40px,,40px,",
+        "pd_mb": "24px,,24px,"
+      }
+    },
+    "true_care_collection_Bq8P4U": {
+      "type": "true-care-collection",
+      "name": "True Care collection",
+      "settings": {
+        "show_description": true,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "products_per_page": 12,
+<<<<<<< HEAD
+        "columns_desktop": "4",
+        "columns_tablet": "3",
+        "columns_mobile": "2",
+=======
+>>>>>>> 439410d7ce2e9c67b8b47bf9acda869402594f51
+        "discount_label": "خصم 30%",
+        "button_label": "أضف إلى السلة",
+        "accent_color": "#ff997f",
+        "price_color": "#f44336",
+<<<<<<< HEAD
+        "padding_top": 0,
+=======
+        "columns_desktop": "4",
+        "columns_tablet": "3",
+        "columns_mobile": "2",
+        "padding_top": 60,
+>>>>>>> 439410d7ce2e9c67b8b47bf9acda869402594f51
+        "padding_bottom": 60,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "footer": {
+      "type": "true-care-footer",
+      "blocks": {
+        "important_policy": { "type": "link", "settings": { "column": "important", "label": "سياسة المتجر", "url": "" } },
+        "important_about": { "type": "link", "settings": { "column": "important", "label": "معلومات عنا", "url": "" } },
+        "important_contact": { "type": "link", "settings": { "column": "important", "label": "تواصل معنا", "url": "" } },
+        "important_shipping": { "type": "link", "settings": { "column": "important", "label": "سياسة الشحن", "url": "" } },
+        "shop_hair": { "type": "link", "settings": { "column": "shop", "label": "العناية بالشعر", "url": "" } },
+        "shop_skin": { "type": "link", "settings": { "column": "shop", "label": "العناية بالبشرة", "url": "" } },
+        "shop_fragrance": { "type": "link", "settings": { "column": "shop", "label": "عطور", "url": "" } },
+        "shop_all": { "type": "link", "settings": { "column": "shop", "label": "جميع المنتجات", "url": "shopify://collections/all" } },
+        "instagram": { "type": "social", "settings": { "label": "Instagram", "icon_name": "instagram", "url": "https://www.instagram.com/truecare.cos" } },
+        "tiktok": { "type": "social", "settings": { "label": "TikTok", "icon_name": "tiktok", "url": "https://www.tiktok.com/@truecare.cos" } },
+        "facebook": { "type": "social", "settings": { "label": "Facebook", "icon_name": "facebook", "url": "" } },
+        "youtube": { "type": "social", "settings": { "label": "YouTube", "icon_name": "youtube", "url": "" } }
+      },
+      "block_order": [
+        "important_policy",
+        "important_about",
+        "important_contact",
+        "important_shipping",
+        "shop_hair",
+        "shop_skin",
+        "shop_fragrance",
+        "shop_all",
+        "instagram",
+        "tiktok",
+        "facebook",
+        "youtube"
+      ],
+      "settings": {
+        "logo": "shopify://shop_images/Container.png",
+        "description": "منتجات عناية أنيقة ذات جودة ممتازة تناسب كل فرد من أفراد الأسرة، وبأسعار جد معقولة.",
+        "phone": "+000 0000 0000",
+        "email": "truecare.cos@gmail.com",
+        "important_heading": "الروابط مهمة",
+        "shop_heading": "تسوقي",
+        "social_heading": "التواصل الاجتماعي",
+        "copyright": "© 2026 True Care. جميع الحقوق محفوظة",
+        "made_with": "صنع بعناية لعشاق الجمال الطبيعي",
+        "background_color": "#fde2cb"
+      }
+    }
+  },
+  "order": [
+    "true_care_header_PKbaKT",
+    "main_heading",
+    "true_care_collection_Bq8P4U",
+    "footer"
+  ]
+}

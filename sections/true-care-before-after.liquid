@@ -1,0 +1,616 @@
+{{ 'true-care-product-sections.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign before_alt = section.settings.before_image.alt | default: section.settings.before_title
+  assign after_alt = section.settings.after_image.alt | default: section.settings.after_title
+  assign slider_label = section.settings.slider_label | default: 'مقارنة صورة قبل وبعد'
+  assign section_label = section.settings.heading | default: section.settings.top_label | default: slider_label
+-%}
+
+<section
+  id="TrueCareBeforeAfter-{{ section.id }}"
+  class="tc-section tcba"
+  dir="rtl"
+  aria-label="{{ section_label | escape }}"
+>
+  <div class="tcba__header">
+    {%- if section.settings.top_label != blank -%}
+      <div class="tcba__eyebrow">
+        <span aria-hidden="true"></span>
+        <span>{{ section.settings.top_label }}</span>
+        <span aria-hidden="true"></span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 id="TrueCareBeforeAfterHeading-{{ section.id }}" class="tcba__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="tcba__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="tcba__layout">
+    <div class="tcba__card tcba__card--after">
+      <h3 class="tcba__card-title">
+        <span class="tcba__status-dot" aria-hidden="true"></span>
+        <span>{{ section.settings.after_title }}</span>
+      </h3>
+      <ul class="tcba__points" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'after_point' and block.settings.text != blank -%}
+            <li class="tcba__point" {{ block.shopify_attributes }}>
+              <span class="tcba__point-icon" aria-hidden="true">
+                {%- render 'icons', icon: 'check' -%}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <hdt-before-after class="tcba__media hdt-bf hdt-grid hdt-relative hdt-oh">
+      <div class="tcba__image-layer hdt-bf__img hdt-bf__img-before hdt-grid-1x1 hdt-relative">
+        {%- if section.settings.before_image != blank -%}
+          {{ section.settings.before_image
+            | image_url: width: 906
+            | image_tag:
+              loading: 'lazy',
+              widths: '302, 604, 906',
+              sizes: '(max-width: 767px) calc(100vw - 48px), 302px',
+              alt: before_alt,
+              class: 'tcba__image'
+          }}
+        {%- else -%}
+          <img src="{{ 'true-care-before.jpg' | asset_url }}" width="606" height="766" loading="lazy" alt="{{ before_alt | escape }}" class="tcba__image">
+        {%- endif -%}
+      </div>
+
+      <div class="tcba__image-layer hdt-bf__img hdt-bf__img-after hdt-grid-1x1 hdt-relative">
+        {%- if section.settings.after_image != blank -%}
+          {{ section.settings.after_image
+            | image_url: width: 906
+            | image_tag:
+              loading: 'lazy',
+              widths: '302, 604, 906',
+              sizes: '(max-width: 767px) calc(100vw - 48px), 302px',
+              alt: after_alt,
+              class: 'tcba__image'
+          }}
+        {%- else -%}
+          <img src="{{ 'true-care-after.jpg' | asset_url }}" width="606" height="766" loading="lazy" alt="{{ after_alt | escape }}" class="tcba__image">
+        {%- endif -%}
+      </div>
+
+      <input
+        class="tcba__range hdt-bf__range hdt-full-width-link"
+        type="range"
+        min="0"
+        max="100"
+        value="{{ section.settings.initial_position }}"
+        aria-label="{{ slider_label | escape }}"
+      >
+      <span class="tcba__line hdt-bf__line hdt-grid-1x1" aria-hidden="true"></span>
+      <span class="tcba__handle hdt-bf__button hdt-grid-1x1 hdt-flex hdt-justify-center hdt-align-center" aria-hidden="true">
+        <span class="tcba__handle-arrow">‹</span>
+        <span class="tcba__handle-arrow">›</span>
+      </span>
+    </hdt-before-after>
+
+    <div class="tcba__card tcba__card--before">
+      <h3 class="tcba__card-title">
+        <span class="tcba__status-dot" aria-hidden="true"></span>
+        <span>{{ section.settings.before_title }}</span>
+      </h3>
+      <ul class="tcba__points" role="list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'before_point' and block.settings.text != blank -%}
+            <li class="tcba__point" {{ block.shopify_attributes }}>
+              <span class="tcba__point-icon" aria-hidden="true">
+                {%- render 'icon' with 'close', width: 10, height: 10 -%}
+              </span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  #TrueCareBeforeAfter-{{ section.id }} {
+    --tcba-bg: {{ section.settings.background_color }};
+    --tcba-surface: #fdfdfd;
+    --tcba-heading: {{ section.settings.heading_color }};
+    --tcba-body: {{ section.settings.body_color }};
+    --tcba-muted: {{ section.settings.muted_color }};
+    --tcba-accent: {{ section.settings.accent_color }};
+    --tcba-success: {{ section.settings.success_color }};
+    --tcba-danger: {{ section.settings.danger_color }};
+    background: var(--tcba-bg);
+    color: var(--tcba-heading);
+    padding: {{ section.settings.padding_top }}px clamp(24px, 4.17vw, 60px) {{ section.settings.padding_bottom }}px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__header {
+    margin: 0 auto 30px;
+    max-width: 1320px;
+    text-align: center;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__eyebrow {
+    align-items: center;
+    color: var(--tcba-accent);
+    display: flex;
+    font-size: 13px;
+    font-weight: 600;
+    gap: 8px;
+    justify-content: center;
+    line-height: 20px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__eyebrow > span[aria-hidden="true"] {
+    background: currentColor;
+    height: 1px;
+    opacity: 0.5;
+    width: 26px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__heading {
+    color: var(--tcba-heading);
+    font-size: clamp(28px, 2.37vw, 34px);
+    font-weight: 700;
+    line-height: 1.55;
+    margin: 10px 0 0;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__subtitle {
+    color: var(--tcba-muted);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__layout {
+    align-items: center;
+    direction: ltr;
+    display: grid;
+    gap: clamp(24px, 3.47vw, 50px);
+    grid-template-areas: "after media before";
+    grid-template-columns: minmax(0, 461fr) minmax(260px, 302px) minmax(0, 460fr);
+    margin: 0 auto;
+    max-width: 1320px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card {
+    background-color: var(--tcba-surface);
+    background-image: url('{{ 'true-care-topography.svg' | asset_url }}');
+    background-position: center;
+    background-size: cover;
+    border-radius: 28px;
+    direction: rtl;
+    min-height: 300px;
+    padding: 37px 30px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card--after {
+    grid-area: after;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card--before {
+    grid-area: before;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card-title {
+    align-items: center;
+    color: var(--tcba-heading);
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+    gap: 8px;
+    justify-content: flex-start;
+    line-height: 31px;
+    margin: 0 0 20px;
+    text-align: right;
+  }
+
+  @media (min-width: 900px) {
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__card-title {
+      justify-content: center;
+    }
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__status-dot {
+    background: var(--tcba-danger);
+    border-radius: 50%;
+    display: block;
+    flex: 0 0 10px;
+    height: 10px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card--after .tcba__status-dot {
+    background: var(--tcba-success);
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__points {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__point {
+    align-items: center;
+    color: var(--tcba-body);
+    display: flex;
+    font-size: 15px;
+    gap: 10px;
+    justify-content: flex-start;
+    line-height: 31px;
+    min-height: 31px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__point-icon {
+    align-items: center;
+    background: var(--tcba-danger);
+    border-radius: 50%;
+    color: #fff;
+    display: inline-flex;
+    flex: 0 0 18px;
+    height: 18px;
+    justify-content: center;
+    width: 18px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__card--after .tcba__point-icon {
+    background: var(--tcba-success);
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__point-icon svg {
+    height: 10px;
+    width: 11px;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__media {
+    --bf-btn-background: 253 253 253;
+    --bf-btn-color: 45 45 45;
+    --bf-btn-h: 38px;
+    --bf-btn-w: 38px;
+    --bf-line: 2px;
+    aspect-ratio: 302 / 383;
+    border: 12px solid var(--tcba-surface);
+    border-radius: 30px;
+    box-shadow: 0 14px 28px rgba(45, 36, 31, 0.16);
+    direction: rtl;
+    grid-area: media;
+    max-width: 302px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__media .hdt-bf__img-after {
+    clip-path: inset(0 var(--hdt-drag-position, 0%) 0 0);
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__media .tcba__line {
+    left: auto;
+    right: var(--hdt-drag-position, 0%);
+    transform: translateX(50%);
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__image-layer,
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__range,
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__line {
+    grid-area: 1 / 1;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__image-layer {
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__image,
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__placeholder {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__placeholder {
+    background: #f2e7df;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__media .tcba__handle {
+    gap: 2px;
+    left: auto;
+    pointer-events: none;
+    right: var(--hdt-drag-position, 0%);
+    transform: translate(50%, -50%);
+    z-index: 3;
+  }
+
+  #TrueCareBeforeAfter-{{ section.id }} .tcba__handle-arrow {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  @media (max-width: 899px) {
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__layout {
+      grid-template-areas:
+        "before"
+        "media"
+        "after";
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 600px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__media {
+      justify-self: center;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__card {
+      min-height: auto;
+    }
+  }
+
+  @media (max-width: 599px) {
+    #TrueCareBeforeAfter-{{ section.id }} {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__header {
+      margin-bottom: 24px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__heading {
+      font-size: 27px;
+      line-height: 1.45;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__subtitle {
+      font-size: 14px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__layout {
+      gap: 22px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__card {
+      padding: 28px 22px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__card-title {
+      font-size: 18px;
+    }
+
+    #TrueCareBeforeAfter-{{ section.id }} .tcba__point {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "True Care Before/After",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top label",
+      "default": "قـبـل و بـعـد"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "من أول استخدام بتلاحظين الفرق"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "روتين يساعد على تنظيف الفروة، تقليل التراكمات، ويدعم كثافة الشعر"
+    },
+    {
+      "type": "image_picker",
+      "id": "before_image",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "after_image",
+      "label": "After image"
+    },
+    {
+      "type": "text",
+      "id": "before_title",
+      "label": "Before title",
+      "default": "قبل الاستخدام"
+    },
+    {
+      "type": "text",
+      "id": "after_title",
+      "label": "After title",
+      "default": "بعد الاستخدام"
+    },
+    {
+      "type": "text",
+      "id": "slider_label",
+      "label": "Slider accessibility label",
+      "default": "مقارنة صورة قبل وبعد"
+    },
+    {
+      "type": "range",
+      "id": "initial_position",
+      "label": "Initial slider position",
+      "min": 10,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FDF5EE"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headings",
+      "default": "#0E0E0E"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Point text",
+      "default": "#625D5B"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Subtitle",
+      "default": "#9F9896"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#F59F87"
+    },
+    {
+      "type": "color",
+      "id": "success_color",
+      "label": "After accent",
+      "default": "#2EC76F"
+    },
+    {
+      "type": "color",
+      "id": "danger_color",
+      "label": "Before accent",
+      "default": "#F59F87"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "before_point",
+      "name": "Before point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "after_point",
+      "name": "After point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "True Care Before/After",
+      "blocks": [
+        {
+          "type": "after_point",
+          "settings": {
+            "text": "شعر أنظف وأكثر حيوية"
+          }
+        },
+        {
+          "type": "after_point",
+          "settings": {
+            "text": "فروة راس منتعشة وأنظف"
+          }
+        },
+        {
+          "type": "after_point",
+          "settings": {
+            "text": "نعومة ولمعة واضحة من أول استخدام"
+          }
+        },
+        {
+          "type": "after_point",
+          "settings": {
+            "text": "تراكمات أقل وشعر أكثر حيوية"
+          }
+        },
+        {
+          "type": "before_point",
+          "settings": {
+            "text": "شعر باهت وثقيل"
+          }
+        },
+        {
+          "type": "before_point",
+          "settings": {
+            "text": "تشابك وصعوبة بالتمشيط"
+          }
+        },
+        {
+          "type": "before_point",
+          "settings": {
+            "text": "فروة تحتاج تنظيف وتوازن"
+          }
+        },
+        {
+          "type": "before_point",
+          "settings": {
+            "text": "تراكمات زيوت وبقايا منتجات"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

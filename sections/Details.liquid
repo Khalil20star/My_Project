@@ -1,0 +1,321 @@
+<section class="usage-steps-section">
+  <div class="usage-container">
+
+    <div class="usage-top">
+      {% if section.settings.label != blank %}
+        <span class="usage-label">{{ section.settings.label }}</span>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p>{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+
+    <div class="steps-wrapper">
+
+      {% for block in section.blocks %}
+        <div class="step" {{ block.shopify_attributes }}>
+
+          <div class="number">
+            {{ block.settings.number }}
+          </div>
+
+          <h3>{{ block.settings.title }}</h3>
+
+          <p>{{ block.settings.text }}</p>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+
+<style>
+
+.usage-steps-section {
+  padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  background: {{ section.settings.background }};
+  direction:rtl;
+}
+
+.usage-container {
+  max-width:1200px;
+  margin:auto;
+}
+
+.usage-top {
+  text-align:center;
+  margin-bottom:50px;
+}
+
+.usage-label {
+  color:{{ section.settings.accent_color }};
+  font-size:14px;
+  display:inline-flex;
+  align-items:center;
+  gap:20px;
+}
+
+.usage-label:before,
+.usage-label:after {
+  content:"";
+  width:60px;
+  height:1px;
+  background:{{ section.settings.line_color }};
+}
+
+.usage-top h2 {
+  font-size:40px;
+  margin:15px 0;
+  color:{{ section.settings.heading_color }};
+}
+
+.usage-top p {
+  color:{{ section.settings.text_color }};
+  font-size:18px;
+}
+
+
+.steps-wrapper {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  position:relative;
+}
+
+.steps-wrapper:before {
+  content:"";
+  position:absolute;
+  top:36px;
+  left:8%;
+  right:8%;
+  height:1px;
+  background:{{ section.settings.line_color }};
+}
+
+
+.step {
+  text-align:center;
+  width:20%;
+  position:relative;
+  z-index:2;
+}
+
+
+.number {
+  width:70px;
+  height:70px;
+  border:1px solid {{ section.settings.accent_color }};
+  border-radius:50%;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  font-size:25px;
+  color:{{ section.settings.number_color }};
+}
+
+
+.step h3 {
+  margin-top:25px;
+  font-size:22px;
+  color:{{ section.settings.heading_color }};
+}
+
+
+.step p {
+  margin-top:12px;
+  color:{{ section.settings.text_color }};
+  font-size:15px;
+}
+
+
+
+@media(max-width:768px){
+
+.steps-wrapper {
+ flex-direction:column;
+ gap:35px;
+}
+
+.steps-wrapper:before {
+ display:none;
+}
+
+.step {
+ width:100%;
+}
+
+.usage-top h2 {
+ font-size:30px;
+}
+
+}
+
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Usage Steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small Label",
+      "default": "خطوة بخطوة"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "طريقة الاستخدام"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "5 خطوات بسيطة – نتيجة لتلاحظينها من أول غسيل"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Circle Accent Color",
+      "default": "#ff947f"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line Color",
+      "default": "#f5c4b9"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number Color",
+      "default": "#234338"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#777777"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min":0,
+      "max":120,
+      "step":10,
+      "default":70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min":0,
+      "max":120,
+      "step":10,
+      "default":70
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type":"text",
+          "id":"number",
+          "label":"Number",
+          "default":"01"
+        },
+        {
+          "type":"text",
+          "id":"title",
+          "label":"Title",
+          "default":"بللي الشعر"
+        },
+        {
+          "type":"textarea",
+          "id":"text",
+          "label":"Description",
+          "default":"بالماء جيدًا قبل الشامبو"
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name":"Usage Steps",
+      "blocks":[
+        {
+          "type":"step",
+          "settings":{
+            "number":"05",
+            "title":"كرري 2-3 مرات",
+            "text":"أسبوعيًا أو حسب الحاجة"
+          }
+        },
+        {
+          "type":"step",
+          "settings":{
+            "number":"04",
+            "title":"اشطفي جيدًا",
+            "text":"بالماء حتى النظافة التامة"
+          }
+        },
+        {
+          "type":"step",
+          "settings":{
+            "number":"03",
+            "title":"دلكي بلطف",
+            "text":"حتى يتكون رغوة جيدًا"
+          }
+        },
+        {
+          "type":"step",
+          "settings":{
+            "number":"02",
+            "title":"ضعي الشامبو",
+            "text":"كمية مناسبة على الفروة"
+          }
+        },
+        {
+          "type":"step",
+          "settings":{
+            "number":"01",
+            "title":"بللي الشعر",
+            "text":"بالماء جيدًا قبل الشامبو"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
