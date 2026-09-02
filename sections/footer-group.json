@@ -67,7 +67,7 @@
           "settings": {
             "column": "shop",
             "label": "عطور",
-            "url": ""
+            "url": "#"
           }
         },
         "link_6FKRkm": {
@@ -75,7 +75,7 @@
           "settings": {
             "column": "shop",
             "label": "جميع المنتجات",
-            "url": ""
+            "url": "#"
           }
         },
         "social_AzjNWn": {
