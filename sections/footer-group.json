@@ -51,7 +51,7 @@
           "settings": {
             "column": "shop",
             "label": "العناية بالشعر",
-            "url": ""
+            "url": "#"
           }
         },
         "link_jrUyJX": {
@@ -59,7 +59,7 @@
           "settings": {
             "column": "shop",
             "label": "العناية بالبشرة",
-            "url": ""
+            "url": "#"
           }
         },
         "link_7ezijw": {
@@ -127,7 +127,6 @@
       ],
       "name": "True Care footer",
       "settings": {
-        "logo": "shopify://shop_images/Container.png",
         "description": "منتجات عناية أنيقة ذات جودة ممتازة تناسب كل فرد من أفراد الأسرة، وبأسعار جد معقولة.",
         "phone": "+000 0000 0000",
         "email": "Test@gmail.com",
