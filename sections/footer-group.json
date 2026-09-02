@@ -75,7 +75,7 @@
           "settings": {
             "column": "shop",
             "label": "جميع المنتجات",
-            "url": "shopify://collections/all"
+            "url": ""
           }
         },
         "social_AzjNWn": {
@@ -130,11 +130,11 @@
         "logo": "shopify://shop_images/Container.png",
         "description": "منتجات عناية أنيقة ذات جودة ممتازة تناسب كل فرد من أفراد الأسرة، وبأسعار جد معقولة.",
         "phone": "+000 0000 0000",
-        "email": "truecare.cos@gmail.com",
+        "email": "Test@gmail.com",
         "important_heading": "الروابط مهمة",
         "shop_heading": "تسوقي",
         "social_heading": "التواصل الاجتماعي",
-        "copyright": "© 2026 True Care. جميع الحقوق محفوظة",
+        "copyright": "© 2026 جميع الحقوق محفوظة",
         "made_with": "صنع بعناية لعشاق الجمال الطبيعي",
         "background_color": "#fde2cb"
       }
